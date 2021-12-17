@@ -37,3 +37,22 @@ cat >> ~/.zshrc <<-"EOF"
 
 	EOF
 
+
+# Set directory of zsh-plugins
+plugins_dir=.local/share/zsh-plugins
+[ ! -d "$plugins_dir" ] && (
+	cd ~
+	mkdir -p "$plugins_dir"
+)
+
+
+# Install Powerlevel10k Theme
+install_powerlevel10k_theme() {
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/"$plugins_dir"/powerlevel10k
+	script_path='~'/"$plugins_dir"/powerlevel10k/powerlevel10k.zsh-theme
+	if ! grep -q "source $script_path" ~/.zshrc; then
+		echo "source $script_path" >> ~/.zshrc
+	fi
+}
+[ ! -d ~/"$plugins_dir"/powerlevel10k ] && install_powerlevel10k_theme
+
