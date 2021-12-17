@@ -18,7 +18,8 @@ fi
 
 
 # Add history settings
-cat >> ~/.zshrc <<-"EOF"
+config_history() {
+	cat >> ~/.zshrc <<-"EOF"
 
 
 	# History settings
@@ -36,6 +37,10 @@ cat >> ~/.zshrc <<-"EOF"
 	SAVEHIST=$HISTSIZE
 
 	EOF
+}
+if ! grep -q '# History settings' ~/.zshrc; then
+	config_history
+fi
 
 
 # Set directory of zsh-plugins
