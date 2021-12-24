@@ -62,6 +62,18 @@ install_powerlevel10k_theme() {
 [ ! -d ~/"$plugins_dir"/powerlevel10k ] && install_powerlevel10k_theme
 
 
+# Install zsh-autosuggestions for Fish-like autosuggestions (https://github.com/zsh-users/zsh-autosuggestions)
+ # It suggests commands as you type based on history and completions.
+install_zsh_autosuggestions() {
+	git clone https://github.com/zsh-users/zsh-autosuggestions ~/"$plugins_dir"/zsh-autosuggestions
+	if ! grep -q 'source ~/'"$plugins_dir"'/zsh-autosuggestions/zsh-autosuggestions.zsh' ~/.zshrc; then
+		echo -e '\n# Load zsh-autosuggestions (https://github.com/zsh-users/zsh-autosuggestions)' >> ~/.zshrc
+		echo 'source ~/'"$plugins_dir"'/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
+	fi
+}
+[ ! -d ~/"$plugins_dir"/zsh-autosuggestions ] && install_zsh_autosuggestions
+
+
 # Install git.plugin.zsh from Oh My Zsh framework (https://github.com/ohmyzsh/ohmyzsh)
 install_git_plugin_zsh() {
 
