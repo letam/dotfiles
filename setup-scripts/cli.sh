@@ -46,3 +46,14 @@ install_bat() {
 	fi
 }
 ! command -v bat >/dev/null && install_bat
+
+
+# Install the silver searcher (ag) - A code-searching tool similar to ack, but faster (https://github.com/ggreer/the_silver_searcher)
+install_ag() {
+	if is_mac; then
+		brew install the_silver_searcher
+	elif is_ubuntu; then
+		sudo apt install silversearcher-ag
+	fi
+}
+! command -v ag >/dev/null && install_ag
