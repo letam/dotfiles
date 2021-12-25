@@ -68,6 +68,8 @@ nnoremap <C-f> :NERDTreeFind<CR>
 Plug 'wakatime/vim-wakatime'
 Plug 'mhinz/vim-startify'
 
+Plug 'junegunn/fzf.vim'
+
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 
