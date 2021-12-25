@@ -57,3 +57,44 @@ install_ag() {
 	fi
 }
 ! command -v ag >/dev/null && install_ag
+
+
+# Install delta - Syntax-highlighting pager for git, diff, and grep output (https://github.com/dandavison/delta)
+install_delta() {
+	if command -v brew >/dev/null; then
+		brew install git-delta
+	elif command -v dnf >/dev/null; then
+		dnf install git-delta
+	else
+		echo "Error: Unable to install 'delta' on this machine."
+	fi
+
+	update_gitconfig_for_delta() {
+		cat >> ~/.gitconfig <<"EOF"
+
+; https://github.com/dandavison/delta
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	; side-by-side = true
+	; line-numbers-left-format = ""
+	; line-numbers-right-format = "│ "
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+EOF
+	}
+	if command -v delta >/dev/null && \
+			! grep -q -E '\tpager = delta' ~/.gitconfig; then
+		update_gitconfig_for_delta
+	fi
+}
+! command -v delta >/dev/null && install_delta
