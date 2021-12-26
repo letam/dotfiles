@@ -80,6 +80,7 @@ Plug 'itchyny/lightline.vim'
 set laststatus=2
 
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'  " Git commit browser
 
 Plug 'airblade/vim-gitgutter'
 nmap <leader>gg :GitGutterNextHunk<CR>
