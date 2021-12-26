@@ -36,6 +36,22 @@ if ! command -v rg >/dev/null; then
 fi
 
 
+# Install fd - More human-friendly find tool (https://github.com/sharkdp/fd)
+install_fd() {
+	if is_mac; then
+		brew install fd
+	elif is_ubuntu; then
+		sudo apt install fd-find
+		mkdir -p ~/.local/bin
+		ln -s $(which fdfind) ~/.local/bin/fd
+		# TODO: Ensure that '$HOME/.local/bin' is in $PATH
+	fi
+}
+if ! command -v fd >/dev/null; then
+	install_fd
+fi
+
+
 # Install bat - cat clone with syntax highlighting and git integration (https://github.com/sharkdp/bat)
  # Check out integration with other tools: https://github.com/sharkdp/bat#integration-with-other-tools
 install_bat() {
