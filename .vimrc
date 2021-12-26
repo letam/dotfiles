@@ -70,6 +70,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <leader>tf :NERDTreeFind<CR>
 nnoremap <leader>tt :NERDTreeToggle<CR>
 
+Plug 'ryanoasis/vim-devicons'  " file type icons
 
 Plug 'wakatime/vim-wakatime'
 Plug 'mhinz/vim-startify'
