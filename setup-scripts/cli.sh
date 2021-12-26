@@ -46,6 +46,15 @@ install_fd() {
 		ln -s $(which fdfind) ~/.local/bin/fd
 		# TODO: Ensure that '$HOME/.local/bin' is in $PATH
 	fi
+	set_fd_as_fzf_default_command() {
+		cat >> ~/.zshrc <<"EOF"
+
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+EOF
+	}
+	set_fd_as_fzf_default_command
 }
 if ! command -v fd >/dev/null; then
 	install_fd
