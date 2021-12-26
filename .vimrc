@@ -11,6 +11,7 @@ set ruler
 set hidden
 set ignorecase
 set smartcase
+set mouse=a  " Enable mouse support (:help mouse)
 
 " # } END base config
 
