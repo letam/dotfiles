@@ -79,7 +79,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'  " Git plugin
+Plug 'tpope/vim-rhubarb'  " GitHub extension for fugitive.vim
 Plug 'junegunn/gv.vim'  " Git commit browser
 
 Plug 'airblade/vim-gitgutter'
