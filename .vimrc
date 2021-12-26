@@ -13,6 +13,9 @@ set ignorecase
 set smartcase
 set mouse=a  " Enable mouse support (:help mouse)
 
+" Map Space key to Leader key
+map <Space> <Leader>
+
 " # } END base config
 
 
