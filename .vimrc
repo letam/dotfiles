@@ -77,8 +77,8 @@ set laststatus=2
 Plug 'tpope/vim-fugitive'
 
 Plug 'airblade/vim-gitgutter'
-nmap <leader>n :GitGutterNextHunk<CR>
-nmap <leader>N :GitGutterPrevHunk<CR>
+nmap <leader>gg :GitGutterNextHunk<CR>
+nmap <leader>G :GitGutterPrevHunk<CR>
 nmap <leader>gs :GitGutterStageHunk<CR>
 nmap <leader>gu :GitGutterUndoHunk<CR>
 
