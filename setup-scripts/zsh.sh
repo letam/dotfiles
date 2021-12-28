@@ -87,6 +87,26 @@ install_zsh_syntax_highlighting() {
 [ ! -d ~/"$plugins_dir"/zsh-syntax-highlighting ] && install_zsh_syntax_highlighting
 
 
+# Install zsh-history-substring-search for Fish-like history search feature, where you can type in any part of any command from history and then cycle through the matches by pressing the UP and DOWN arrows (https://github.com/zsh-users/zsh-history-substring-search)
+install_zsh_history_substring_search() {
+	cd ~/"$plugins_dir"
+	git clone https://github.com/zsh-users/zsh-history-substring-search.git
+	if ! grep -q 'source ~/'"$plugins_dir"'/zsh-history-substring-search/zsh-history-substring-search.zsh' ~/.zshrc; then
+		echo -e '\n# Load zsh-history-substring-search (https://github.com/zsh-users/zsh-history-substring-search)' >> ~/.zshrc
+		echo 'source ~/'"$plugins_dir"'/zsh-history-substring-search/zsh-history-substring-search.zsh' >> ~/.zshrc
+		echo '  # Bind keyboard shortcuts for zsh-history-substring-search:' >> ~/.zshrc
+		cat >> ~/.zshrc <<-"EOF"
+		bindkey '^[[A' history-substring-search-up
+		bindkey '^[[B' history-substring-search-down
+		bindkey -M vicmd 'k' history-substring-search-up
+		bindkey -M vicmd 'j' history-substring-search-down
+		EOF
+	fi
+	cd -
+}
+[ ! -d ~/"$plugins_dir"/zsh-history-substring-search ] && install_zsh_history_substring_search
+
+
 # Install git.plugin.zsh from Oh My Zsh framework (https://github.com/ohmyzsh/ohmyzsh)
 install_git_plugin_zsh() {
 
