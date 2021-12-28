@@ -74,6 +74,19 @@ install_zsh_autosuggestions() {
 [ ! -d ~/"$plugins_dir"/zsh-autosuggestions ] && install_zsh_autosuggestions
 
 
+# Install zsh-syntax-highlighting for Fish-like command line syntax highlighting support (https://github.com/zsh-users/zsh-syntax-highlighting)
+install_zsh_syntax_highlighting() {
+	cd ~/"$plugins_dir"
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+	if ! grep -q 'source ~/'"$plugins_dir"'/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ~/.zshrc; then
+		echo -e '\n# Load zsh-syntax-highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)' >> ${ZDOTDIR:-$HOME}/.zshrc
+		echo 'source ~/'"$plugins_dir"'/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ${ZDOTDIR:-$HOME}/.zshrc
+	fi
+	cd -
+}
+[ ! -d ~/"$plugins_dir"/zsh-syntax-highlighting ] && install_zsh_syntax_highlighting
+
+
 # Install git.plugin.zsh from Oh My Zsh framework (https://github.com/ohmyzsh/ohmyzsh)
 install_git_plugin_zsh() {
 
