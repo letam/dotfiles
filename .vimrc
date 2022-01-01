@@ -291,8 +291,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>F  :Prettier<CR>
 
 
