@@ -11,7 +11,12 @@ set ruler
 set hidden
 set ignorecase
 set smartcase
+
 set mouse=a  " Enable mouse support (:help mouse)
+
+" Set tab width
+set shiftwidth=3
+set tabstop=3
 
 " Map Space key to Leader key
 map <Space> <Leader>
