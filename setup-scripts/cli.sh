@@ -99,7 +99,19 @@ install_delta() {
 
 ; https://github.com/dandavison/delta
 [core]
-	pager = delta
+	; pager = delta
+	; Better config for git pager based on width of window
+	; https://github.com/wfxr/forgit/issues/121#issuecomment-725811214
+	pager = "{																				\
+		COLUMNS=$(tput cols);															\
+		if [ $COLUMNS -ge 80 ] && [ -z $FZF_PREVIEW_COLUMNS ]; then			\
+			delta --side-by-side -w $COLUMNS;										\
+		elif [ $COLUMNS -ge 160 ] && [ ! -z $FZF_PREVIEW_COLUMNS ]; then	\
+			delta --side-by-side -w $FZF_PREVIEW_COLUMNS;						\
+		else																					\
+			delta;																			\
+		fi																						\
+	}"
 
 [interactive]
 	diffFilter = delta --color-only
