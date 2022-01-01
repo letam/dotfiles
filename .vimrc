@@ -294,6 +294,13 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>F  :Prettier<CR>
 
 
+" Markdown Preview (for .md files)
+" If run into issues with post-update hook: https://github.com/iamcco/markdown-preview.nvim/issues/50
+" tl;dr: Run ':call mkdp#util#install()' After installing
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': ['markdown']}
+
+
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'junegunn/seoul256.vim'
