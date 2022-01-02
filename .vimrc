@@ -294,6 +294,11 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>F  :Prettier<CR>
 
 
+" Black formatter for Python files
+Plug 'psf/black', { 'branch': 'stable' }
+autocmd FileType python  nmap <buffer> <leader>F  :Black<CR>
+
+
 " Markdown Preview (for .md files)
 " If run into issues with post-update hook: https://github.com/iamcco/markdown-preview.nvim/issues/50
 " tl;dr: Run ':call mkdp#util#install()' After installing
