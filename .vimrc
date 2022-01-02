@@ -42,6 +42,9 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Multiple Plug commands can be written in a single line using | separators
 if has('nvim')
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<c-b>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 endif
 
 " On-demand loading
