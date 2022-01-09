@@ -34,6 +34,12 @@ if ! command -v nvim >/dev/null; then
 fi
 
 
+# Link Neovim configuration for user
+# Note: Ensure that you are in the root directory of this project/repo to ensure that `pwd` evaluates properly
+mkdir -p ~/.config/nvim
+ln -s $(pwd)/.vimrc ~/.config/nvim/init.vim
+
+
 # Function to install vim-plug plugin manager for Neovim (https://github.com/junegunn/vim-plug)
 install_plug() {
 	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
