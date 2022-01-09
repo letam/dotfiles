@@ -33,3 +33,13 @@ if ! command -v nvim >/dev/null; then
 	install_neovim
 fi
 
+
+# Function to install vim-plug plugin manager for Neovim (https://github.com/junegunn/vim-plug)
+install_plug() {
+	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+}
+if [[ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]]; then
+	install_plug
+fi
+
