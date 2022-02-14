@@ -373,3 +373,11 @@ colors seoul256
 
 " # } END theme
 
+
+" # BEGIN misc {
+" Fix CSS indentation inside of HTML files
+" Reference: https://www.reddit.com/r/vim/comments/97e33c/autoindent_bugs_regarding_html_style_tags/
+let g:html_indent_style1 = "inc"
+"
+" # } END misc
+
