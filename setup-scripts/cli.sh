@@ -102,15 +102,15 @@ install_delta() {
 	; pager = delta
 	; Better config for git pager based on width of window
 	; https://github.com/wfxr/forgit/issues/121#issuecomment-725811214
-	pager = "{																				\
-		COLUMNS=$(tput cols);															\
-		if [ $COLUMNS -ge 80 ] && [ -z $FZF_PREVIEW_COLUMNS ]; then			\
-			delta --side-by-side -w $COLUMNS;										\
+	pager = "{									\
+		COLUMNS=$(tput cols);							\
+		if [ $COLUMNS -ge 80 ] && [ -z $FZF_PREVIEW_COLUMNS ]; then		\
+			delta --side-by-side -w $COLUMNS;				\
 		elif [ $COLUMNS -ge 160 ] && [ ! -z $FZF_PREVIEW_COLUMNS ]; then	\
-			delta --side-by-side -w $FZF_PREVIEW_COLUMNS;						\
-		else																					\
-			delta;																			\
-		fi																						\
+			delta --side-by-side -w $FZF_PREVIEW_COLUMNS;			\
+		else									\
+			delta;								\
+		fi									\
 	}"
 
 [interactive]
@@ -127,10 +127,13 @@ install_delta() {
 
 [diff]
 	colorMoved = default
+
 EOF
 	}
-	if command -v delta >/dev/null && \
-			! grep -q -E '\tpager = delta' ~/.gitconfig; then
+	if command -v delta >/dev/null && ( \
+			[[ ! -f ~/.gitconfig ]] || \
+			! grep -q -E '\t*\[delta\]' ~/.gitconfig \
+			); then
 		update_gitconfig_for_delta
 	fi
 }
