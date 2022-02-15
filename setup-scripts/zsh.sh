@@ -17,6 +17,18 @@ if ! command -v zsh >/dev/null; then
 fi
 
 
+# Enable interactive comments
+config_interactive_comments() {
+	cat >> ~/.zshrc <<-"EOF"
+
+	# Enable Interactive Comments (Able to end commands with history-searchable comments)
+	setopt interactive_comments
+
+	EOF
+}
+config_interactive_comments
+
+
 # Add history settings
 config_history() {
 	cat >> ~/.zshrc <<-"EOF"
