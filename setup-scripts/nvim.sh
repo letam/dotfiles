@@ -18,6 +18,7 @@ install_neovim() {
 		[[ ! $? -eq 0 ]] && exit 1
 		sudo tar xzf nvim-macos.tar.gz
 		sudo ln -s /opt/nvim-osx64/bin/nvim /usr/local/bin/nvim
+		cd -
 	elif is_ubuntu; then
 		echo "Detected Ubuntu OS."
 		sudo apt install neovim
