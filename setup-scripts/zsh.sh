@@ -33,20 +33,27 @@ config_interactive_comments
 config_history() {
 	cat >> ~/.zshrc <<-"EOF"
 
-
 	# History settings
+		# Reference: https://github.com/mattjj/my-oh-my-zsh/blob/master/history.zsh
+		# Reference: https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh
 
-	# Cause all terminals to share the same history 'session', and save timestamps.
-	setopt SHARE_HISTORY
-
-	## Ignore lines that begin with a space, and ignore duplicate entries
-	setopt HIST_IGNORE_SPACE
-	setopt HIST_IGNORE_DUPS
+	HISTFILE=~/.zhistory
 
 	## Increase history size
-	HISTFILE=~/.zhistory
 	HISTSIZE=999999999
 	SAVEHIST=$HISTSIZE
+
+	setopt SHARE_HISTORY          # share history between all sessions
+	setopt EXTENDED_HISTORY       # write the history file with timestamps in the ":start:elapsed;command" format
+	setopt INC_APPEND_HISTORY     # write to the history file immediately, not when the shell exits
+
+	setopt HIST_IGNORE_DUPS       # ignore duplicated commands in history list
+	setopt HIST_IGNORE_SPACE      # ignore commands that start with space
+	setopt HIST_EXPIRE_DUPS_FIRST # delete duplicate entries first when HISTFILE size exceeds HISTSIZE
+	setopt HIST_REDUCE_BLANKS     # remove superfluous blanks before recording entry
+
+	setopt HIST_FIND_NO_DUPS      # do not display a line previously found
+	setopt HIST_VERIFY            # show command with history expansion to user before execution
 
 	EOF
 }
