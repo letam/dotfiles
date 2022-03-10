@@ -344,6 +344,10 @@ autocmd FileType python  nmap <buffer> <leader>F  :Black<CR>
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': ['markdown']}
 
 
+" Ruby langauge support
+Plug 'vim-ruby/vim-ruby'
+
+
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'junegunn/seoul256.vim'
