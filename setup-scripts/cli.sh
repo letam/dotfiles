@@ -83,6 +83,17 @@ install_ag() {
 }
 ! command -v ag >/dev/null && install_ag
 
+# Install icdiff - improved colored diff (https://github.com/jeffkaufman/icdiff)
+install_icdiff() {
+	pip3 install git+https://github.com/jeffkaufman/icdiff.git
+
+	# TODO: Ensure that the Python binary directory is added to PATH:
+	# export PATH=$HOME/Library/Python/3.8/bin:$PATH
+
+	# Configure icdiff options
+	git config --global icdiff.options '--highlight --line-numbers'
+}
+! command -v icdiff >/dev/null && install_icdiff
 
 # Install delta - Syntax-highlighting pager for git, diff, and grep output (https://github.com/dandavison/delta)
 install_delta() {
@@ -137,4 +148,6 @@ EOF
 		update_gitconfig_for_delta
 	fi
 }
-! command -v delta >/dev/null && install_delta
+# NOTE: Do not install delta for git diff since it seems to not work well for light backgrounds
+# ! command -v delta >/dev/null && install_delta
+
