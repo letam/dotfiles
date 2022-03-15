@@ -117,6 +117,12 @@ let g:javascript_conceal_super                = "Ω"
 let g:javascript_conceal_arrow_function       = "⇒"
 map <leader>l :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>
 
+
+" Syntax highlighting for JSX-TypeScript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
+
 Plug 'honza/vim-snippets'
 
 " Plug 'dense-analysis/ale'
