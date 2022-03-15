@@ -21,6 +21,9 @@ set tabstop=3
 " Map Space key to Leader key
 map <Space> <Leader>
 
+" Open current buffer in new tab
+nnoremap <leader>tn <C-w>s <C-w>T
+
 " # } END base config
 
 
