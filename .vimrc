@@ -352,6 +352,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'junegunn/seoul256.vim'
 Plug 'jnurmine/Zenburn'
+Plug 'rakr/vim-one'
+Plug 'preservim/vim-colors-pencil'
 
 " # } END my plugins
 
@@ -362,18 +364,35 @@ call plug#end()
 "
 
 " # BEGIN theme {
+
+" Colorschemes
+
 " Unified color scheme (default: dark)
 colors seoul256
 
 " Light color scheme
 "colors seoul256-light
 
-" Switch
-"set background=dark
-"set background=light
-
+" Dark themes
 "colors dracula
 "colors zenburn
+
+" Suports both dark and light
+"colorscheme one
+colorscheme pencil
+
+
+" Switch dark vs light
+"set background=dark
+set background=light
+
+
+" Lightline theme
+		" colorscheme for light background
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
+
 
 " # } END theme
 
