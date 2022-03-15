@@ -48,7 +48,7 @@ if has('nvim')
 endif
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using a non-default branch
@@ -77,6 +77,8 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <leader>tf :NERDTreeFind<CR>
 nnoremap <leader>tt :NERDTreeToggle<CR>
+
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'ryanoasis/vim-devicons'  " file type icons
 
