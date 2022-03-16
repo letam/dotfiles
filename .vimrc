@@ -24,6 +24,12 @@ map <Space> <Leader>
 " Open current buffer in new tab
 nnoremap <leader>tn <C-w>s <C-w>T
 
+" Open new buffer in new window rendering Startify dashboard
+nnoremap <leader>ts :tabnew<CR>:Startify<CR>
+
+" Clear highlighted search matches
+nnoremap <leader>ho :nohlsearch<CR>
+
 " # } END base config
 
 
