@@ -21,6 +21,9 @@ set tabstop=3
 " Map Space key to Leader key
 map <Space> <Leader>
 
+" Switch to buffer by number, quickly
+nnoremap <leader>b :buffers<CR>:buffer<Space>
+
 " Open current buffer in new tab
 nnoremap <leader>tn <C-w>s <C-w>T
 
