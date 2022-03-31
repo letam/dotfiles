@@ -449,10 +449,20 @@ colors seoul256
 "set background=dark
 set background=light
 
+" Initialize lightline config map
+let g:lightline = {}
+
+fun! Lightline(scheme)
+	let g:lightline.colorscheme = a:scheme
+	call lightline#disable()
+	call lightline#enable()
+endf
+
 " Load dark color scheme
 fun! Colorsdark()
 	set background=dark
 	colorscheme dracula
+	call Lightline('darcula')
 
 	" Set transparent background
 	hi Normal guibg=NONE ctermbg=NONE
@@ -463,11 +473,7 @@ command -nargs=* Colorsdark call Colorsdark(<f-args>)
 fun! Colorslight()
 	set background=light
 	colorscheme pencil
-
-	" Lightline theme -- set colorscheme for light background
-	let g:lightline = {
-			\ 'colorscheme': 'one',
-			\ }
+	call Lightline('one')
 endf
 command -nargs=* Colorslight call Colorslight(<f-args>)
 
