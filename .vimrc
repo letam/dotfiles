@@ -465,6 +465,9 @@ fun! Colorsdefault(...)
 	else
 		set background=dark
 		colorscheme dracula
+
+		" Set transparent background
+		hi Normal guibg=NONE ctermbg=NONE
 	endif
 endf
 command -nargs=* Colorsdefault call Colorsdefault(<f-args>)
