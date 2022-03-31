@@ -107,8 +107,8 @@ Plug 'tpope/vim-rhubarb'  " GitHub extension for fugitive.vim
 Plug 'junegunn/gv.vim'  " Git commit browser
 
 Plug 'airblade/vim-gitgutter'
-nmap <leader>gg :GitGutterNextHunk<CR>
-nmap <leader>G :GitGutterPrevHunk<CR>
+nmap <leader>gj :GitGutterNextHunk<CR>
+nmap <leader>gk :GitGutterPrevHunk<CR>
 nmap <leader>gs :GitGutterStageHunk<CR>
 nmap <leader>gu :GitGutterUndoHunk<CR>
 
