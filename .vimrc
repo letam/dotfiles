@@ -405,6 +405,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for':
 " Ruby langauge support
 Plug 'vim-ruby/vim-ruby'
 
+Plug 'ap/vim-css-color'
+
 
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
