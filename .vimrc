@@ -449,25 +449,37 @@ colors seoul256
 "set background=dark
 set background=light
 
+" Load dark color scheme
+fun! Colorsdark()
+	set background=dark
+	colorscheme dracula
+
+	" Set transparent background
+	hi Normal guibg=NONE ctermbg=NONE
+endf
+command -nargs=* Colorsdark call Colorsdark(<f-args>)
+
+" Load light color scheme
+fun! Colorslight()
+	set background=light
+	colorscheme pencil
+
+	" Lightline theme -- set colorscheme for light background
+	let g:lightline = {
+			\ 'colorscheme': 'one',
+			\ }
+endf
+command -nargs=* Colorslight call Colorslight(<f-args>)
+
 " Load color scheme as light or dark based on time of day
 fun! Colorsdefault(...)
 	let theme = a:0 > 0 ? a:1 :
 				\ strftime('%H') >= 7 && strftime('%H') < 20 ? "light" : "dark"
 
 	if theme == "light"
-		set background=light
-		colorscheme pencil
-
-		" Lightline theme -- set colorscheme for light background
-		let g:lightline = {
-				\ 'colorscheme': 'one',
-				\ }
+		Colorslight
 	else
-		set background=dark
-		colorscheme dracula
-
-		" Set transparent background
-		hi Normal guibg=NONE ctermbg=NONE
+		Colorsdark
 	endif
 endf
 command -nargs=* Colorsdefault call Colorsdefault(<f-args>)
