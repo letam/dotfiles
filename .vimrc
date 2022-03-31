@@ -425,7 +425,9 @@ call plug#end()
 
 " # BEGIN theme {
 
-set termguicolors
+if (has("termguicolors"))
+	set termguicolors
+endif
 
 " Colorschemes
 
