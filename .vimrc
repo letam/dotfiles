@@ -443,19 +443,32 @@ colors seoul256
 
 " Suports both dark and light
 "colorscheme one
-colorscheme pencil
-
+"colorscheme pencil
 
 " Switch dark vs light
 "set background=dark
 set background=light
 
+" Load color scheme as light or dark based on time of day
+fun! Colorsdefault(...)
+	let theme = a:0 > 0 ? a:1 :
+				\ strftime('%H') >= 7 && strftime('%H') < 20 ? "light" : "dark"
 
-" Lightline theme
-		" colorscheme for light background
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ }
+	if theme == "light"
+		set background=light
+		colorscheme pencil
+
+		" Lightline theme -- set colorscheme for light background
+		let g:lightline = {
+				\ 'colorscheme': 'one',
+				\ }
+	else
+		set background=dark
+		colorscheme dracula
+	endif
+endf
+command -nargs=* Colorsdefault call Colorsdefault(<f-args>)
+Colorsdefault
 
 
 " # } END theme
