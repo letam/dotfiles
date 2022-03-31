@@ -425,6 +425,8 @@ call plug#end()
 
 " # BEGIN theme {
 
+set termguicolors
+
 " Colorschemes
 
 " Unified color scheme (default: dark)
