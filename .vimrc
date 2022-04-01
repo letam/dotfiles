@@ -425,10 +425,6 @@ call plug#end()
 
 " # BEGIN theme {
 
-if (has("termguicolors"))
-	set termguicolors
-endif
-
 " Colorschemes
 
 " Unified color scheme (default: dark)
@@ -464,6 +460,10 @@ fun! Colorsdark()
 	colorscheme dracula
 	call Lightline('darcula')
 
+	if (has("termguicolors"))
+		set notermguicolors
+	endif
+
 	" Set transparent background
 	hi Normal guibg=NONE ctermbg=NONE
 endf
@@ -474,6 +474,10 @@ fun! Colorslight()
 	set background=light
 	colorscheme pencil
 	call Lightline('one')
+
+	if (has("termguicolors"))
+		set termguicolors
+	endif
 endf
 command -nargs=* Colorslight call Colorslight(<f-args>)
 
