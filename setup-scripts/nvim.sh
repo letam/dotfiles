@@ -5,7 +5,7 @@
 
 # Utility functions
 is_mac() { [[ $(uname -s) = 'Darwin' ]]; }
-is_ubuntu() { [[ -f /etc/os-release && $(head -1 /etc/os-release) = 'NAME="Ubuntu"' ]]; }
+is_ubuntu() { cat /etc/os-release | grep -q "NAME=\"Ubuntu\""; }
 
 
 # Function to install Neovim on system
