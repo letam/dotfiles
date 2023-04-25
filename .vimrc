@@ -417,6 +417,9 @@ Plug 'junegunn/seoul256.vim'
 Plug 'jnurmine/Zenburn'
 Plug 'rakr/vim-one'
 Plug 'preservim/vim-colors-pencil'
+if has('nvim')
+	Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
+endif
 
 " # } END my plugins
 
@@ -442,6 +445,8 @@ call plug#end()
 
 " Suports both dark and light
 "colorscheme one
+"colorscheme rose-pine
+
 "colorscheme pencil
 let g:pencil_terminal_italics = 1
 
