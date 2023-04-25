@@ -446,10 +446,10 @@ call plug#end()
 "colors angr
 
 " Suports both dark and light
-"colorscheme one
-"colorscheme rose-pine
+"colors one
+"colors rose-pine
 
-"colorscheme pencil
+"color pencil
 let g:pencil_terminal_italics = 1
 
 " Switch dark vs light
