@@ -420,6 +420,7 @@ Plug 'preservim/vim-colors-pencil'
 if has('nvim')
 	Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
 endif
+Plug 'zacanger/angr.vim'
 
 " # } END my plugins
 
@@ -442,6 +443,7 @@ call plug#end()
 " Dark color schemes
 "colors dracula
 "colors zenburn
+"colors angr
 
 " Suports both dark and light
 "colorscheme one
