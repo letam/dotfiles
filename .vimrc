@@ -83,6 +83,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "
 
 Plug 'tpope/vim-vinegar'  " file explorer-navigation goodies and related sugar
+Plug 'tpope/vim-eunuch'  " provides UNIX shell commands
 
 " NERDTree shortcuts
 nnoremap <leader>n :NERDTreeFocus<CR>
