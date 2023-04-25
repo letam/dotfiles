@@ -431,18 +431,19 @@ call plug#end()
 " Colorschemes
 
 " Unified color scheme (default: dark)
-colors seoul256
+"colors seoul256
 
 " Light color scheme
 "colors seoul256-light
 
-" Dark themes
+" Dark color schemes
 "colors dracula
 "colors zenburn
 
 " Suports both dark and light
 "colorscheme one
 "colorscheme pencil
+let g:pencil_terminal_italics = 1
 
 " Switch dark vs light
 "set background=dark
