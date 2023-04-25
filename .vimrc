@@ -468,8 +468,8 @@ endf
 " Load dark color scheme
 fun! Colorsdark()
 	set background=dark
-	colorscheme dracula
 	call Lightline('darcula')
+	colorscheme angr
 
 	if (has("termguicolors"))
 		set notermguicolors
@@ -483,8 +483,12 @@ command -nargs=* Colorsdark call Colorsdark(<f-args>)
 " Load light color scheme
 fun! Colorslight()
 	set background=light
-	colorscheme pencil
 	call Lightline('one')
+	if has('nvim')
+		colorscheme rose-pine
+	else
+		colorscheme pencil
+	endif
 
 	if (has("termguicolors"))
 		set termguicolors
