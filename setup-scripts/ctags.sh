@@ -14,7 +14,7 @@ install_ctags() {
 		brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 		sudo ln -s /opt/homebrew/bin/ctags /usr/local/bin
 	else
-		echo "Not implemented for this OS"
+		sudo snap install universal-ctags
 	fi
 }
 ! command -v ctags >/dev/null && install_ctags
