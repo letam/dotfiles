@@ -18,6 +18,9 @@ install_neovim() {
 mkdir -p ~/.config/nvim
 ln -s $(pwd)/.vimrc ~/.config/nvim/init.vim
 
+# Link vimrc to home directory for easy access
+ln -s $(pwd)/.vimrc ~/.vimrc
+
 
 # Install vim-plug - Vim/Neovim plugin manager (https://github.com/junegunn/vim-plug)
 install_plug() {
