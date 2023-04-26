@@ -11,6 +11,7 @@ if is_ubuntu; then
 	! command -v git >/dev/null && sudo apt install -y git
 	! command -v curl >/dev/null && sudo apt install -y curl
 	! command -v tmux >/dev/null && sudo apt install -y tmux
+	! command -v xclip >/dev/null && sudo apt install -y xclip
 fi
 
 
