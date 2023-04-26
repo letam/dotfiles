@@ -14,6 +14,12 @@ if is_ubuntu; then
 fi
 
 
+# Update bash config (~/.bashrc) with letam's shbang bash setup script
+if is_ubuntu; then
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/letam/shbang/master/setup/cli/bash)"
+fi
+
+
 # Install FZF general-purpose command-line fuzzy finder (https://github.com/junegunn/fzf)
 install_fzf() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
