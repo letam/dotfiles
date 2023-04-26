@@ -17,6 +17,7 @@ install_neovim() {
 # Note: Ensure that you are in the root directory of this project/repo to ensure that `pwd` evaluates properly
 mkdir -p ~/.config/nvim
 ln -s $(pwd)/.vimrc ~/.config/nvim/init.vim
+ln -s $(pwd)/nvim/lua ~/.config/nvim
 
 # Link vimrc to home directory for easy access
 ln -s $(pwd)/.vimrc ~/.vimrc
