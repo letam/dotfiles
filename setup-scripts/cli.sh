@@ -6,6 +6,14 @@ is_mac() { [[ $(uname -s) = 'Darwin' ]]; }
 is_ubuntu() { cat /etc/os-release | grep -q "NAME=\"Ubuntu\""; }
 
 
+# Install essential tools on Ubuntu
+if is_ubuntu; then
+	! command -v git >/dev/null && sudo apt install -y git
+	! command -v curl >/dev/null && sudo apt install -y curl
+	! command -v tmux >/dev/null && sudo apt install -y tmux
+fi
+
+
 # Install FZF general-purpose command-line fuzzy finder (https://github.com/junegunn/fzf)
 install_fzf() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -17,10 +25,44 @@ install_fzf() {
 # Install Homebrew package manager (https://brew.sh/)
 install_brew() {
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+	if is_ubuntu; then
+		(echo; echo '# Load brew'; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.profile
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+		sudo apt install -y build-essential
+		brew install gcc
+	fi
 }
-if is_mac && ! command -v brew >/dev/null; then
+if ! command -v brew >/dev/null; then
 	install_brew
 fi
+
+
+# Install latest Python interpreter (https://www.python.org/)
+install_python() {
+	brew install python
+	pip install -U pip setuptools
+
+	# Create link so that `python` points to `python3`
+	sudo ln -s `which python3` /usr/local/bin/python
+}
+! command -v python >/dev/null && install_python
+
+
+# Install pipx - Install and Run Python Applications in Isolated Environments (https://pypa.github.io/pipx/)
+install_pipx() {
+	brew install pipx
+	pipx ensurepath
+}
+! command -v pipx >/dev/null && install_pipx
+
+
+# Install ranger - A VIM-inspired filemanager for the console
+install_ranger() {
+	pipx install ranger-fm
+}
+! command -v ranger >/dev/null && install_ranger
 
 
 # Install enhanced line search tool (https://github.com/BurntSushi/ripgrep)
@@ -31,9 +73,7 @@ install_ripgrep() {
 		sudo apt install ripgrep
 	fi
 }
-if ! command -v rg >/dev/null; then
-	install_ripgrep
-fi
+! command -v rg >/dev/null && install_ripgrep
 
 
 # Install fd - More human-friendly find tool (https://github.com/sharkdp/fd)
@@ -56,9 +96,7 @@ EOF
 	}
 	set_fd_as_fzf_default_command
 }
-if ! command -v fd >/dev/null; then
-	install_fd
-fi
+! command -v fd >/dev/null && install_fd
 
 
 # Install bat - cat clone with syntax highlighting and git integration (https://github.com/sharkdp/bat)
@@ -68,6 +106,7 @@ install_bat() {
 		brew install bat
 	elif is_ubuntu; then
 		sudo apt install bat
+		sudo ln -s /usr/bin/batcat /usr/local/bin/bat
 	fi
 }
 ! command -v bat >/dev/null && install_bat
@@ -83,17 +122,16 @@ install_ag() {
 }
 ! command -v ag >/dev/null && install_ag
 
+
 # Install icdiff - improved colored diff (https://github.com/jeffkaufman/icdiff)
 install_icdiff() {
-	pip3 install git+https://github.com/jeffkaufman/icdiff.git
-
-	# TODO: Ensure that the Python binary directory is added to PATH:
-	# export PATH=$HOME/Library/Python/3.8/bin:$PATH
+	pipx install git+https://github.com/jeffkaufman/icdiff.git
 
 	# Configure icdiff options
 	git config --global icdiff.options '--highlight --line-numbers'
 }
 ! command -v icdiff >/dev/null && install_icdiff
+
 
 # Install delta - Syntax-highlighting pager for git, diff, and grep output (https://github.com/dandavison/delta)
 install_delta() {
