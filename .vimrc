@@ -95,6 +95,14 @@ nnoremap <leader>tt :NERDTreeToggle<CR>
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+if has('nvim')
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+
+	" Get FZF as sorter for telescope
+	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+endif
+
 Plug 'ryanoasis/vim-devicons'  " file type icons
 
 Plug 'wakatime/vim-wakatime'
@@ -188,11 +196,24 @@ call plug#end()
 " # } END plugins
 
 
-" BEGIN LSP config {
+" # BEGIN LSP config {
 if has('nvim')
 	lua require('lsp')
 endif
-" } END LSP config
+" # } END LSP config
+
+
+" # BEGIN Telescope config {
+if has('nvim')
+	" Find files using Telescope command-line sugar.
+	nnoremap <leader>ff <cmd>Telescope find_files<cr>
+	nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+	nnoremap <leader>fb <cmd>Telescope buffers<cr>
+	nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+	lua require('telescope').load_extension('fzf')
+endif
+" # } END Telescope config
 
 
 " # BEGIN theme {

@@ -2,6 +2,16 @@
 
 # Install Neovim
 
+source ./setup-scripts/utils.sh
+
+
+# Ensure cmake is installed to compile certain plugins (i.e. 'nvim-telescope/telescope-fzf-native.nvim')
+if is_mac; then
+	brew install cmake
+elif is_ubuntu; then
+	sudo snap install --classic cmake
+fi
+
 
 # Function to install Neovim on system
 install_neovim() {
