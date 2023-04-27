@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-
 # Install ctags - creates a index (or tag) file of language objects found in source files for programming languages.
 # This index makes it easy for text editors (such as Vim) and other tools to locate the indexed items.
  # Source: https://github.com/universal-ctags/ctags
 
-# Utility functions
-is_mac() { [[ $(uname -s) = 'Darwin' ]]; }
-is_ubuntu() { cat /etc/os-release | grep -q "NAME=\"Ubuntu\""; }
+source ./setup-scripts/utils.sh
 
 install_ctags() {
 	if is_mac; then

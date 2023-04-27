@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 
-# Utility functions
-is_mac() { [[ $(uname -s) = 'Darwin' ]]; }
-is_ubuntu() { cat /etc/os-release | grep -q "NAME=\"Ubuntu\""; }
+# Load utility functions
+source ./setup-scripts/utils.sh
 
 
 # Install essential tools on Ubuntu

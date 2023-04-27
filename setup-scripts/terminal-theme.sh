@@ -3,9 +3,7 @@
 # Install Gogh color scheme manager for terminal emulators
 # Source: https://github.com/Gogh-Co/Gogh
 
-# Utility functions
-is_ubuntu() { cat /etc/os-release | grep -q "NAME=\"Ubuntu\""; }
-
+source ./setup-scripts/utils.sh
 
 if is_ubuntu; then
 	# Install pre-requisites
