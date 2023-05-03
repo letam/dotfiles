@@ -20,6 +20,7 @@ set tabstop=3
 
 " Map Space key to Leader key
 map <Space> <Leader>
+"	Note that for nvim, <Space>q and <Space>e are taken
 
 " Switch to buffer by number, quickly
 nnoremap <leader>b :buffers<CR>:buffer<Space>
@@ -301,9 +302,22 @@ Colorsdefault
 
 
 " # BEGIN misc {
+
 " Fix CSS indentation inside of HTML files
 " Reference: https://www.reddit.com/r/vim/comments/97e33c/autoindent_bugs_regarding_html_style_tags/
 let g:html_indent_style1 = "inc"
-"
+
 " # } END misc
 
+
+" # BEGIN commands {
+
+" Execute file currently in buffer
+function! ExecuteFile()
+	execute "!./" . expand("%")
+endfunction
+command! ExecuteFile call ExecuteFile()
+nnoremap <leader>ef :ExecuteFile<cr>
+nnoremap <leader>xf :ExecuteFile<cr>
+
+" # } END commands
