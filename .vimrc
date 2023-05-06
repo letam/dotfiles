@@ -163,6 +163,7 @@ Plug 'honza/vim-snippets'
 
 if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
+	Plug 'jose-elias-alvarez/null-ls.nvim'
 endif
 
 " Markdown Preview (for .md files)
@@ -197,11 +198,12 @@ call plug#end()
 " # } END plugins
 
 
-" # BEGIN LSP config {
+" # BEGIN nvim-related plugin config {
 if has('nvim')
 	lua require('lsp')
+	lua require('null_ls')
 endif
-" # } END LSP config
+" # } END nvim-related plugin config
 
 
 " # BEGIN Telescope config {
