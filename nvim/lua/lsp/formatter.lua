@@ -13,6 +13,7 @@ null_ls.setup({
 
 		-- Python/Django/Jinja/Flask
 		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.isort,
 		null_ls.builtins.formatting.djhtml,
 		null_ls.builtins.formatting.djlint,
 		null_ls.builtins.diagnostics.ruff,

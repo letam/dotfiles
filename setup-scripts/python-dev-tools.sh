@@ -15,6 +15,7 @@ install() {
 	pipx install --include-deps python-lsp-black
 	pipx install --include-deps pylsp-mypy
 
+	pipx install isort
 	pipx install djhtml
 	pipx install djlint
 }
@@ -27,6 +28,7 @@ uninstall() {
 	pipx uninstall python-lsp-black
 	pipx uninstall pylsp-mypy
 
+	pipx uninstall isort
 	pipx uninstall djhtml
 	pipx uninstall djlint
 }
