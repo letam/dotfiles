@@ -12,7 +12,9 @@ null_ls.setup({
 		-- null_ls.builtins.completion.spell,
 
 		-- Python/Django/Jinja/Flask
-		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.black.with({
+			extra_args = { "--skip-string-normalization" },
+		}),
 		null_ls.builtins.formatting.isort,
 		null_ls.builtins.formatting.djhtml,
 		null_ls.builtins.formatting.djlint,
