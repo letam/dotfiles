@@ -11,6 +11,9 @@ null_ls.setup({
 		-- null_ls.builtins.diagnostics.eslint,
 		-- null_ls.builtins.completion.spell,
 
+		-- Prettier (javascript, react, typescript, css, scss, json, graphql, markdown, yaml, html, vue, handlebars)
+		null_ls.builtins.formatting.prettierd,
+
 		-- Python/Django/Jinja/Flask
 		null_ls.builtins.formatting.black.with({
 			extra_args = { "--skip-string-normalization" },
