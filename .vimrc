@@ -127,6 +127,10 @@ nmap <leader>gu :GitGutterUndoHunk<CR>
 Plug 'tpope/vim-commentary'
 
 Plug 'sbdchd/neoformat'
+"format entire file
+nmap <leader>cf  :Neoformat<CR>
+"format selected text
+xnoremap <leader>cf  :Neoformat<CR>
 
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
