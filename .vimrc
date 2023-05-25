@@ -180,6 +180,8 @@ Plug 'vim-ruby/vim-ruby'
 
 Plug 'ap/vim-css-color'
 
+Plug 'github/copilot.vim'
+
 
 " Themes
 Plug 'dracula/vim', { 'as': 'dracula' }
