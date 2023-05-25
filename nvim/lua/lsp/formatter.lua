@@ -12,7 +12,11 @@ null_ls.setup({
 		-- null_ls.builtins.completion.spell,
 
 		-- Prettier (javascript, react, typescript, css, scss, json, graphql, markdown, yaml, html, vue, handlebars)
-		null_ls.builtins.formatting.prettierd,
+		-- null_ls.builtins.formatting.prettierd,
+		null_ls.builtins.formatting.prettierd.with({
+			-- filetypes={ "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
+			filetypes={ "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
+		}),
 
 		-- Python/Django/Jinja/Flask
 		null_ls.builtins.formatting.black.with({
