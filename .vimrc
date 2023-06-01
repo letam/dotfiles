@@ -157,6 +157,10 @@ Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'honza/vim-snippets'
 
+
+Plug 'mattn/emmet-vim'
+
+
 " Plug 'dense-analysis/ale'
 "let g:ale_fixers = {
 "\   'javascript': ['prettier'],
