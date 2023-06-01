@@ -2,6 +2,7 @@
 
 -- Uses null-ls.nvim - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
 -- Reference: https://github.com/jose-elias-alvarez/null-ls.nvim
+-- Reference for built-in sources: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 
 local null_ls = require("null-ls")
 
@@ -15,7 +16,13 @@ null_ls.setup({
 		-- null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.prettierd.with({
 			-- filetypes={ "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
-			filetypes={ "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
+			filetypes={ "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
+		}),
+
+		-- Rome (Formatter, linter, bundler, and more for JavaScript, TypeScript, JSON, HTML, Markdown, and CSS.)
+			-- Note: Currently supports only JavaScript, TypeScript, JSON
+		null_ls.builtins.formatting.rome.with({
+			filetypes={ "javascript", "typescript", "javascriptreact", "typescriptreact", "json" }
 		}),
 
 		-- Python/Django/Jinja/Flask
