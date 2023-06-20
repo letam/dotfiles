@@ -70,7 +70,7 @@ plugins_dir=.local/share/zsh-plugins
 )
 
 
-# Install Powerlevel10k Theme
+# Install Powerlevel10k Theme (https://github.com/romkatv/powerlevel10k)
 install_powerlevel10k_theme() {
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/"$plugins_dir"/powerlevel10k
 	script_path='~'/"$plugins_dir"/powerlevel10k/powerlevel10k.zsh-theme
@@ -78,7 +78,24 @@ install_powerlevel10k_theme() {
 		echo "source $script_path" >> ~/.zshrc
 	fi
 }
-[ ! -d ~/"$plugins_dir"/powerlevel10k ] && install_powerlevel10k_theme
+# [ ! -d ~/"$plugins_dir"/powerlevel10k ] && install_powerlevel10k_theme
+
+
+# Install Starship theme (https://starship.rs/)
+install_starship_theme() {
+	# detect if brew installed
+	if command -v brew >/dev/null; then
+		brew install starship
+	else
+		curl -sS https://starship.rs/install.sh | sh
+	fi
+	if ! grep -q 'eval "$(starship init zsh)"' ~/.zshrc; then
+		echo >> ~/.zshrc
+		echo '# Activate Starship theme' >> ~/.zshrc
+		echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+	fi
+}
+! command -v starship >/dev/null && install_starship_theme
 
 
 # Install zsh-autosuggestions for Fish-like autosuggestions (https://github.com/zsh-users/zsh-autosuggestions)
