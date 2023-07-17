@@ -18,6 +18,8 @@ install_neovim() {
 	echo "Installing Neovim..."
 	brew install neovim
 	sudo ln -s `which nvim` /usr/local/bin/vim
+
+	git config --global core.editor vim
 }
 # If command `nvim` is not found, then run function to install Neovim
 ! command -v nvim >/dev/null && install_neovim
