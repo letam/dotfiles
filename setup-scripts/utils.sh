@@ -5,5 +5,5 @@
 
 is_mac() { [[ $(uname -s) = 'Darwin' ]]; }
 
-is_ubuntu() { cat /etc/os-release | grep -q "NAME=\"Ubuntu\""; }
+is_ubuntu() { [[ -f /etc/os-release && -n $(grep -m1 "NAME=\"Ubuntu\"" /etc/os-release) ]]; }
 
