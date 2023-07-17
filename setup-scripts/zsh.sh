@@ -162,14 +162,3 @@ install_git_plugin_zsh() {
 	cd - >/dev/null
 }
 install_git_plugin_zsh
-
-
-# Install interactive tool for git "forgit" (https://github.com/wfxr/forgit)
-install_forgit_git_plugin_zsh() {
-	curl -sSL git.io/forgit > ~/"$plugins_dir"/forgit.plugin.bash
-	if ! grep -q 'source ~/'"$plugins_dir"'/forgit.plugin.bash' ~/.zshrc; then
-		echo -e '\n# Load forgit interactive git tool (https://github.com/wfxr/forgit)' >> ~/.zshrc
-		echo '[ -f ~/'"$plugins_dir"'/forgit.plugin.bash ] && source ~/'"$plugins_dir"'/forgit.plugin.bash' >> ~/.zshrc
-	fi
-}
-install_forgit_git_plugin_zsh
