@@ -38,6 +38,9 @@ install_brew() {
 
 		sudo apt install -y build-essential
 		brew install gcc
+	elif is_mac; then
+ii		(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
+		eval "$(/opt/homebrew/bin/brew shellenv)"
 	fi
 }
 if ! command -v brew >/dev/null; then
@@ -48,10 +51,13 @@ fi
 # Install latest Python interpreter (https://www.python.org/)
 install_python() {
 	brew install python
-	pip install -U pip setuptools
 
 	# Create link so that `python` points to `python3`
+	[ ! -d /usr/local/bin ] && sudo mkdir /usr/local/bin
 	sudo ln -s `which python3` /usr/local/bin/python
+
+	# Update pip and setuptools
+	python -m pip install -U pip setuptools
 }
 ! command -v python >/dev/null && install_python
 
