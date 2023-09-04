@@ -19,12 +19,6 @@ null_ls.setup({
 			filetypes={ "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
 		}),
 
-		-- Rome (Formatter, linter, bundler, and more for JavaScript, TypeScript, JSON, HTML, Markdown, and CSS.)
-			-- Note: Currently supports only JavaScript, TypeScript, JSON
-		null_ls.builtins.formatting.rome.with({
-			filetypes={ "javascript", "typescript", "javascriptreact", "typescriptreact", "json" }
-		}),
-
 		-- Python/Django/Jinja/Flask
 		null_ls.builtins.formatting.black.with({
 			extra_args = { "--skip-string-normalization" },
