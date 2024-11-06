@@ -301,7 +301,7 @@ command -nargs=* Colorslight call Colorslight(<f-args>)
 " Load color scheme as light or dark based on time of day
 fun! Colorsdefault(...)
 	let theme = a:0 > 0 ? a:1 :
-				\ strftime('%H') >= 7 && strftime('%H') < 20 ? "light" : "dark"
+				\ strftime('%H') >= 7 && strftime('%H') < 17 ? "light" : "dark"
 
 	if theme == "light"
 		Colorslight
