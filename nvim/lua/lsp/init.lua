@@ -2,18 +2,21 @@
 -- Source: https://github.com/neovim/nvim-lspconfig
 
 -- Setup language servers.
--- Reference for server configs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-local lspconfig = require('lspconfig')
--- lspconfig.pyright.setup {}
-lspconfig.pylsp.setup {}
-lspconfig.ts_ls.setup {}
-lspconfig.rust_analyzer.setup {
-  -- Server-specific settings. See `:help lspconfig-setup`
-  settings = {
-    ['rust-analyzer'] = {},
-  },
-}
+-- Reference for server configs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
+-- vim.lsp.enable('pyright')
+vim.lsp.enable('pylsp')
+vim.lsp.enable('pylsp')
+vim.lsp.enable('ts_ls')
+vim.lsp.config('rust_analyzer', {
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
