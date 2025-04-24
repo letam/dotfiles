@@ -174,7 +174,6 @@ Plug 'mattn/emmet-vim'
 
 if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'jose-elias-alvarez/null-ls.nvim'
 endif
 
 " Markdown Preview (for .md files)
