@@ -15,14 +15,17 @@ fi
 
 # Function to install Neovim on system
 install_neovim() {
-	echo "Installing Neovim..."
-	brew install neovim
+	if command -v nvim >/dev/null; then
+		echo "Neovim is already installed"
+	else
+		echo "Installing Neovim..."
+		brew install neovim
+	fi
 	sudo ln -s `which nvim` /usr/local/bin/vim
 
 	git config --global core.editor vim
 }
-# If command `nvim` is not found, then run function to install Neovim
-! command -v nvim >/dev/null && install_neovim
+install_neovim
 
 
 # Link Neovim configuration for user
