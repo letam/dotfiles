@@ -1,124 +1,243 @@
 #!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# Install common CLI tools
 
 
 # Load utility functions
 source ./setup-scripts/utils.sh
 
+detect_os
+info "Detected OS: $OS"
+
 
 # Install essential tools on Ubuntu
 if is_ubuntu; then
-	! command -v git >/dev/null && sudo apt install -y git
-	! command -v curl >/dev/null && sudo apt install -y curl
-	! command -v tmux >/dev/null && sudo apt install -y tmux
-	! command -v xclip >/dev/null && sudo apt install -y xclip
+	for pkg in git curl tmux xclip; do
+		if command -v "$pkg" >/dev/null; then
+			info "$pkg is already installed"
+		else
+			info "Installing $pkg…"
+			sudo apt install -y "$pkg"
+		fi
+	done
 fi
 
 
 # Update bash config (~/.bashrc) with letam's shbang bash setup script
 if is_ubuntu; then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/letam/shbang/master/setup/cli/bash)"
+	if grep -q 'Bash settings' ~/.bashrc; then 
+		info 'Bash is already set up with our custom settings'
+	else
+		info "Settig up Bash with shbang settings"
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/letam/shbang/master/setup/cli/bash)"
+	fi
 fi
-
-
-# Install FZF general-purpose command-line fuzzy finder (https://github.com/junegunn/fzf)
-install_fzf() {
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install
-}
-[ ! -d ~/.fzf ] && install_fzf
 
 
 # Install Homebrew package manager (https://brew.sh/)
 install_brew() {
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	info "Starting Homebrew installation…"
+
+	if command -v brew >/dev/null; then
+		info "brew is already installed"
+	else
+		info "brew not found — installing Homebrew now"
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	fi
 
 	if is_ubuntu; then
-		(echo; echo '# Load brew'; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.profile
-		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+		if grep -q 'Load brew' ~/.bashrc; then 
+			info "Linuxbrew environment already configured in ~/.profile"
+		else
+			info "Configuring Linuxbrew environment in ~/.profile"
+			{
+				echo
+				echo '# Load brew'
+				echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+			} >> "$HOME/.profile"
+			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-		sudo apt install -y build-essential
-		brew install gcc
+			info "Installing build-essential via apt"
+			sudo apt install -y build-essential
+
+			info "Installing gcc via brew"
+			brew install gcc
+		fi
 	elif is_mac; then
-ii		(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
-		eval "$(/opt/homebrew/bin/brew shellenv)"
+		if grep -q 'Load brew' ~/.zprofile; then 
+			info "Homebrew environment already configured in ~/.zprofile"
+		else
+			info "Configuring Homebrew environment in ~/.zprofile"
+			{
+				echo
+				echo '# Load brew'
+				echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+			} >> "$HOME/.zprofile"
+			eval "$(/opt/homebrew/bin/brew shellenv)"
+		fi
 	fi
+	info "Homebrew installation complete."
 }
-if ! command -v brew >/dev/null; then
-	install_brew
-fi
+install_brew
+
+
+# Install FZF general-purpose command-line fuzzy finder (https://github.com/junegunn/fzf)
+install_fzf() {
+	if command -v fzf >/dev/null; then
+		info "fzf is already installed"
+	else
+		info "Installing fzf via Homebrew…"
+		brew install fzf
+	fi
+	info "Setting up fzf shell integration…"
+
+	# Bash integration
+	add_line_if_missing \
+		"$HOME/.bashrc" \
+		"Set up fzf key bindings and fuzzy completion" \
+		'eval "$(fzf --bash)"'
+
+	# Zsh integration
+	add_line_if_missing \
+		"$HOME/.zshrc" \
+		"Set up fzf key bindings and fuzzy completion" \
+		'source <(fzf --zsh)'
+	
+	# # Fish integration
+	# add_line_if_missing \
+	# 	"$HOME/.config/fish/config.fish" \
+	# 	"Set up fzf key bindings" \
+	# 	'fzf --fish | source'
+
+}
+install_fzf
 
 
 # Install latest Python interpreter (https://www.python.org/)
 install_python() {
+	info "Installing Python via Homebrew…"
 	brew install python
 
-	# Create link so that `python` points to `python3`
-	[ ! -d /usr/local/bin ] && sudo mkdir /usr/local/bin
-	sudo ln -s `which python3` /usr/local/bin/python
+	if [ ! -d /usr/local/bin ]; then
+		info "Creating /usr/local/bin directory…"
+		sudo mkdir -p /usr/local/bin
+	else
+		info "/usr/local/bin already exists"
+	fi
 
-	# Update pip and setuptools
-	python -m pip install -U pip setuptools
+	info "Linking python3 to python…"
+	sudo ln -sf "$(which python3)" /usr/local/bin/python
+
+	# info/ "Updating pip and setuptools…"
+	# python -m pip install -U pip setuptools
+
+	info "Python installation complete."
 }
-! command -v python >/dev/null && install_python
+install_python
 
 
 # Install pipx - Install and Run Python Applications in Isolated Environments (https://pypa.github.io/pipx/)
+# 	Note: Currently only used to install ranger-fm
 install_pipx() {
-	brew install pipx
+	if command -v pipx >/dev/null; then
+		info "pipx is already installed"
+	else
+		info "Installing pipx…"
+		brew install pipx
+	fi
 	pipx ensurepath
 }
-! command -v pipx >/dev/null && install_pipx
+install_pipx
+
+
+# Install uv - Python package and project manager (https://github.com/astral-sh/uv)
+install_uv() {
+	if command -v uv >/dev/null; then
+		info "uv is already installed"
+	else
+		info "Installing uv…"
+		# On macOS and Linux.
+		curl -LsSf https://astral.sh/uv/install.sh | sh
+		source $HOME/.local/bin/env
+	fi
+}
+install_uv
 
 
 # Install ranger - A VIM-inspired filemanager for the console
 install_ranger() {
-	pipx install ranger-fm
+	if command -v ranger >/dev/null; then
+		info "ranger is already installed"
+	else
+		info "Installing ranger…"
+		pipx install ranger-fm
+	fi
 }
-! command -v ranger >/dev/null && install_ranger
+install_ranger
 
 
 # Install enhanced line search tool (https://github.com/BurntSushi/ripgrep)
 install_ripgrep() {
-	if is_mac; then
+	if command -v rg >/dev/null; then
+		info "ripgrep is already installed"
+	else
+		info "Installing ripgrep…"
 		brew install ripgrep
-	elif is_ubuntu; then
-		sudo apt install ripgrep
 	fi
 }
-! command -v rg >/dev/null && install_ripgrep
+install_ripgrep
 
 
 # Install fd - More human-friendly find tool (https://github.com/sharkdp/fd)
 install_fd() {
-	if is_mac; then
-		brew install fd
-	elif is_ubuntu; then
-		sudo apt install fd-find
-		mkdir -p ~/.local/bin
-		ln -s $(which fdfind) ~/.local/bin/fd
-		# TODO: Ensure that '$HOME/.local/bin' is in $PATH
+	if command -v fd >/dev/null; then
+		info "fd is already installed"
+	else
+		info "Installing fd…"
+		if is_ubuntu; then
+			sudo apt install fd-find
+			mkdir -p ~/.local/bin
+			ln -s "$(which fdfind)" ~/.local/bin/fd
+			# TODO: Ensure that '$HOME/.local/bin' is in $PATH
+		elif is_mac; then
+			brew install fd
+		fi
 	fi
+
 	set_fd_as_fzf_default_command() {
-		cat >> ~/.zshrc <<"EOF"
+		local rc=$1
+		if grep -q 'Setting fd as the default source for fzf' "$rc"; then
+			info "fd is already set as the default source for fzf in $rc"
+			return
+		fi
+		info "Setting fd as the default source for fzf in $rc"
+		cat >> "$rc" <<"EOF"
 
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 EOF
 	}
-	set_fd_as_fzf_default_command
+	
+	for rc in ~/.zshrc ~/.bashrc; do
+		if [ -f "$rc" ]; then
+			set_fd_as_fzf_default_command "$rc"
+		fi
+	done
 }
-! command -v fd >/dev/null && install_fd
+install_fd
 
 
 # Install bat - cat clone with syntax highlighting and git integration (https://github.com/sharkdp/bat)
  # Check out integration with other tools: https://github.com/sharkdp/bat#integration-with-other-tools
 install_bat() {
-	if is_mac; then
-		brew install bat
-	elif is_ubuntu; then
+	if is_ubuntu; then
 		sudo apt install bat
 		sudo ln -s /usr/bin/batcat /usr/local/bin/bat
+	elif is_mac; then
+		brew install bat
 	fi
 }
 ! command -v bat >/dev/null && install_bat
@@ -126,10 +245,10 @@ install_bat() {
 
 # Install the silver searcher (ag) - A code-searching tool similar to ack, but faster (https://github.com/ggreer/the_silver_searcher)
 install_ag() {
-	if is_mac; then
-		brew install the_silver_searcher
-	elif is_ubuntu; then
+	if is_ubuntu; then
 		sudo apt install silversearcher-ag
+	elif is_mac; then
+		brew install the_silver_searcher
 	fi
 }
 ! command -v ag >/dev/null && install_ag
@@ -137,22 +256,32 @@ install_ag() {
 
 # Install icdiff - improved colored diff (https://github.com/jeffkaufman/icdiff)
 install_icdiff() {
-	pipx install git+https://github.com/jeffkaufman/icdiff.git
+	if command -v icdiff >/dev/null; then
+		info "icdiff is already installed"
+	else
+		info "Installing icdiff…"
+		brew install icdiff
+	fi
 
 	# Configure icdiff options
 	git config --global icdiff.options '--highlight --line-numbers'
 }
-! command -v icdiff >/dev/null && install_icdiff
+install_icdiff
 
 
 # Install delta - Syntax-highlighting pager for git, diff, and grep output (https://github.com/dandavison/delta)
 install_delta() {
-	if command -v brew >/dev/null; then
-		brew install git-delta
-	elif command -v dnf >/dev/null; then
-		dnf install git-delta
+	if command -v delta >/dev/null; then
+		info "delta is already installed"
 	else
-		echo "Error: Unable to install 'delta' on this machine."
+		info "Installing delta…"
+		if command -v brew >/dev/null; then
+			brew install git-delta
+		elif command -v dnf >/dev/null; then
+			dnf install git-delta
+		else
+			info "Error: Unable to install 'delta' on this machine."
+		fi
 	fi
 
 	update_gitconfig_for_delta() {
@@ -190,14 +319,15 @@ install_delta() {
 	colorMoved = default
 
 EOF
-	}
 	if command -v delta >/dev/null && ( \
 			[[ ! -f ~/.gitconfig ]] || \
 			! grep -q -E '\t*\[delta\]' ~/.gitconfig \
 			); then
+		info "Configuring delta in gitconfig"
 		update_gitconfig_for_delta
 	fi
+	}
 }
 # NOTE: Do not install delta for git diff since it seems to not work well for light backgrounds
-# ! command -v delta >/dev/null && install_delta
+# install_delta
 
