@@ -97,14 +97,17 @@ nnoremap <leader>tt :NERDTreeToggle<CR>
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" Set up telescope.nvim fuzzy finder. Find, Filter, Preview, Pick. 
+" Reference: https://github.com/nvim-telescope/telescope.nvim
 if has('nvim')
-	Plug 'nvim-lua/plenary.nvim'
-
-	" Reference: https://github.com/nvim-telescope/telescope.nvim
 	Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
+	" Dependencies
+	Plug 'nvim-lua/plenary.nvim' " Lua utility functions
+
 	" Get FZF as sorter for telescope
-	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+	" Reference: https://github.com/nvim-telescope/telescope-fzf-native.nvim
+	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 endif
 
 Plug 'ryanoasis/vim-devicons'  " file type icons
