@@ -1,0 +1,5 @@
+# https://ghostty.org/docs/config
+
+
+theme = dark:catppuccin-frappe,light:catppuccin-latte
+
