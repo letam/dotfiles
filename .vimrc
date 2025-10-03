@@ -18,6 +18,38 @@ set mouse=a  " Enable mouse support (:help mouse)
 set shiftwidth=3
 set tabstop=3
 
+" Function to use tabs for indentation
+function! UseTabs()
+   set noexpandtab
+   set tabstop=3
+   set shiftwidth=3
+   set autoindent
+   echo "Indenting with tabs (tabstop=3, shiftwidth=3)"
+endfunction
+
+" Function to use spaces for indentation (default 4)
+function! UseSpaces4()
+   set expandtab
+   set tabstop=4
+   set shiftwidth=4
+   set autoindent
+   echo "Indenting with spaces (tabstop=4, shiftwidth=4)"
+endfunction
+
+" Function to use spaces for indentation (2 spaces)
+function! UseSpaces2()
+   set expandtab
+   set tabstop=2
+   set shiftwidth=2
+   set autoindent
+   echo "Indenting with spaces (tabstop=2, shiftwidth=2)"
+endfunction
+
+" Mappings for easy switching
+nnoremap <leader>it :call UseTabs()<CR>
+nnoremap <leader>is4 :call UseSpaces4()<CR>
+nnoremap <leader>is2 :call UseSpaces2()<CR>
+
 " Map Space key to Leader key
 map <Space> <Leader>
 "	Note that for nvim, <Space>q and <Space>e are taken
