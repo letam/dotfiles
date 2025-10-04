@@ -254,6 +254,42 @@ install_ag() {
 ! command -v ag >/dev/null && install_ag
 
 
+# Install jq - command-line JSON processor (https://jqlang.org)
+install_jq() {
+	if command -v jq >/dev/null; then
+		info "jq is already installed"
+		return
+	fi
+	info "Installing jq…"
+	if is_ubuntu; then
+		sudo apt install jq
+	elif is_mac; then
+		brew install jq
+	else
+		info "Not available on this system"
+	fi
+}
+install_jq
+
+
+# Install just - Just a command runner (https://github.com/casey/just)
+install_just() {
+	if command -v just >/dev/null; then
+		info "just is already installed"
+		return
+	fi
+		info "Installing just…"
+	if is_ubuntu; then
+		sudo apt install just
+	elif is_mac; then
+		brew install just
+	else
+		info "Not available on this system"
+	fi
+}
+install_just
+
+
 # Install icdiff - improved colored diff (https://github.com/jeffkaufman/icdiff)
 install_icdiff() {
 	if command -v icdiff >/dev/null; then
