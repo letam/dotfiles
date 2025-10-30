@@ -1,0 +1,8 @@
+
+# INSTRUCTIONS: Copy contents to sudo crontab upon 'sudo crontab -e'
+
+# shutdown computer after 2200 - reminder to stop working so late
+shutdown_now='shutdown -r now'
+*/5 22-23 * * * eval "$shutdown_now"
+*/5 0-4 * * * eval "$shutdown_now"
+
