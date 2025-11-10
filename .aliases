@@ -1,0 +1,6 @@
+
+# markdown reader stuff
+
+  # list dates and checkboxes
+alias md="rg -N --multiline --no-heading -e '- \[ \]' -e '^D[0-9]{4}-[0-9]{2}-[0-9]{2}' -e 'T[0-9]{2}:[0-9]{2}' "
+
