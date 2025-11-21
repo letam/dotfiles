@@ -4,3 +4,10 @@
   # list dates and checkboxes
 alias md="rg -N --multiline --no-heading -e '- \[ \]' -e '^D[0-9]{4}-[0-9]{2}-[0-9]{2}' -e 'T[0-9]{2}:[0-9]{2}' "
 
+
+# postgres
+postgres_version=18
+
+  # start postgresql as non-background service
+alias pgserver="LC_ALL='en_US.UTF-8' /opt/homebrew/opt/postgresql@${postgres_version}/bin/postgres -D /opt/homebrew/var/postgresql@${postgres_version}"
+
