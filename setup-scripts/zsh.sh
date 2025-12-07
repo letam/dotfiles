@@ -162,3 +162,12 @@ install_git_plugin_zsh() {
 	cd - >/dev/null
 }
 install_git_plugin_zsh
+
+
+if ! getent passwd "$USER" | grep -qE ':/bin/zsh$|:/usr/bin/zsh$'; then
+	cat <<-EOF
+	To change your default shell, run:
+	  sudo chsh -s /bin/zsh $USER
+	EOF
+fi
+
