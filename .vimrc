@@ -371,4 +371,12 @@ command! ExecuteFile call ExecuteFile()
 nnoremap <leader>ef :ExecuteFile<cr>
 nnoremap <leader>xf :ExecuteFile<cr>
 
+" Insert timestamp at cursor position
+nnoremap <leader>dts "=strftime('%Y-%m-%d %H:%M:%S')<CR>p
+inoremap <C-d>s <C-r>=strftime('%Y-%m-%d %H:%M:%S')<CR>
+
+" Insert time only at cursor position
+nnoremap <leader>dt "=strftime('%H:%M:%S')<CR>p
+inoremap <C-d>t <C-r>=strftime('%H:%M:%S')<CR>
+
 " # } END commands
