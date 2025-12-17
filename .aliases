@@ -1,4 +1,9 @@
 
+# misc utils
+
+alias bcat='bat --plain --paging=never'
+
+
 # markdown reader stuff
 
   # list dates and checkboxes
