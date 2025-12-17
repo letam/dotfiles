@@ -239,6 +239,13 @@ if has('nvim')
 endif
 Plug 'zacanger/angr.vim'
 
+Plug 'wellle/context.vim'
+let g:startify_session_before_save = [
+	\ "ContextDisable"
+	\ ]
+
+Plug 'junegunn/goyo.vim'
+
 " # } END my plugins
 
 " Initialize plugin system
