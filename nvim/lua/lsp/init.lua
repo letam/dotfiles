@@ -6,7 +6,6 @@
 
 -- vim.lsp.enable('pyright')
 vim.lsp.enable('pylsp')
-vim.lsp.enable('pylsp')
 vim.lsp.enable('ts_ls')
 vim.lsp.config('rust_analyzer', {
   settings = {
@@ -17,6 +16,7 @@ vim.lsp.config('rust_analyzer', {
     }
   }
 })
+vim.lsp.enable('biome')
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
