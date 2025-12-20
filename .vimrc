@@ -211,6 +211,7 @@ Plug 'mattn/emmet-vim'
 
 if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
+	Plug 'lewis6991/gitsigns.nvim'
 endif
 
 " Markdown Preview (for .md files)
