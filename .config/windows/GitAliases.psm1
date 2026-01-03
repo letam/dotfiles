@@ -9,6 +9,10 @@
 #   gl (Get-Location) -> gpull - git pull
 #   gp (Get-ItemProperty) -> gpush - git push
 #   gpv (Get-ItemPropertyValue) -> gpushv - git push --verbose
+#
+# Note: Aliases with ! are replaced with x (PowerShell doesn't allow ! in names):
+#   gca! -> gcax, gcan! -> gcanx, gcans! -> gcansx, gcann! -> gcannx
+#   gc! -> gcx, gcn! -> gcnx, gpf! -> gpfx
 
 # Helper function to safely set aliases (warn only if no alternative)
 function Set-GitAlias {
@@ -528,25 +532,25 @@ Set-GitAlias -Name gca -Value git-commit-verbose-all -Scope Global
 function git-commit-verbose-all { git commit --verbose --all }
 
 function git-commit-verbose-all-amend { git commit --verbose --all --amend }
-Set-GitAlias -Name 'gca!' -Value git-commit-verbose-all-amend -Scope Global
+Set-GitAlias -Name gcax -Value git-commit-verbose-all-amend -Scope Global
 
 function git-commit-verbose-all-no-edit-amend { git commit --verbose --all --no-edit --amend }
-Set-GitAlias -Name 'gcan!' -Value git-commit-verbose-all-no-edit-amend -Scope Global
+Set-GitAlias -Name gcanx -Value git-commit-verbose-all-no-edit-amend -Scope Global
 
 function git-commit-verbose-all-signoff-no-edit-amend { git commit --verbose --all --signoff --no-edit --amend }
-Set-GitAlias -Name 'gcans!' -Value git-commit-verbose-all-signoff-no-edit-amend -Scope Global
+Set-GitAlias -Name gcansx -Value git-commit-verbose-all-signoff-no-edit-amend -Scope Global
 
 function git-commit-verbose-all-date-now-no-edit-amend { git commit --verbose --all --date=now --no-edit --amend }
-Set-GitAlias -Name 'gcann!' -Value git-commit-verbose-all-date-now-no-edit-amend -Scope Global
+Set-GitAlias -Name gcannx -Value git-commit-verbose-all-date-now-no-edit-amend -Scope Global
 
 function git-commit-verbose-amend { git commit --verbose --amend }
-Set-GitAlias -Name 'gc!' -Value git-commit-verbose-amend -Scope Global
+Set-GitAlias -Name gcx -Value git-commit-verbose-amend -Scope Global
 
 Set-GitAlias -Name gcn -Value git-commit-verbose-no-edit -Scope Global
 function git-commit-verbose-no-edit { git commit --verbose --no-edit $args }
 
 function git-commit-verbose-no-edit-amend { git commit --verbose --no-edit --amend }
-Set-GitAlias -Name 'gcn!' -Value git-commit-verbose-no-edit-amend -Scope Global
+Set-GitAlias -Name gcnx -Value git-commit-verbose-no-edit-amend -Scope Global
 
 # Git Config
 Set-GitAlias -Name gcf -Value git-config-list -Scope Global
@@ -774,7 +778,7 @@ function git-push-dry-run { git push --dry-run }
 Set-GitAlias -Name ggf -Value Invoke-GitPushForceOrigin -Scope Global
 
 function git-push-force { git push --force }
-Set-GitAlias -Name 'gpf!' -Value git-push-force -Scope Global
+Set-GitAlias -Name gpfx -Value git-push-force -Scope Global
 
 if ($script:GitVersion -ge [version]"2.30") {
     Set-GitAlias -Name gpf -Value git-push-force-lease-includes -Scope Global
