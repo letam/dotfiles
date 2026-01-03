@@ -1,5 +1,11 @@
 # Git Aliases PowerShell Module
 # Converted from oh-my-zsh git plugin
+#
+# Usage:
+#   Import-Module GitAliases -DisableNameChecking
+#
+# The -DisableNameChecking parameter suppresses PowerShell warnings about
+# unapproved verbs and restricted characters in function names.
 
 # Note: Some aliases conflict with PowerShell built-ins and use alternative names:
 #   gcm (Get-Command) -> gcmain - git checkout main
