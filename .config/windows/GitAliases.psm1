@@ -9,8 +9,8 @@
 
 # Note: Some aliases conflict with PowerShell built-ins and use alternative names:
 #   gcm (Get-Command) -> gcmain - git checkout main
-#   gcs (Get-Credential) -> gcommitsign - git commit --gpg-sign
-#   gc (Get-Content) -> gcommit - git commit --verbose
+#   gcs (Get-Credential) -> gcsign - git commit --gpg-sign
+#   gc (Get-Content) -> gcv - git commit --verbose
 #   gm (Get-Member) -> gmerge - git merge
 #   gl (Get-Location) -> gpull - git pull
 #   gp (Get-ItemProperty) -> gpush - git push
@@ -514,8 +514,8 @@ function git-commit-all-signoff { git commit --all --signoff }
 Set-GitAlias -Name gcasm -Value git-commit-all-signoff-message -Scope Global
 function git-commit-all-signoff-message { git commit --all --signoff --message $args }
 
-Set-GitAlias -Name gcs -Value git-commit-gpg-sign -Scope Global -AlternativeName gcommitsign
-Set-GitAlias -Name gcommitsign -Value git-commit-gpg-sign -Scope Global  # Alternative to avoid conflict
+Set-GitAlias -Name gcs -Value git-commit-gpg-sign -Scope Global -AlternativeName gcsign
+Set-GitAlias -Name gcsign -Value git-commit-gpg-sign -Scope Global  # Alternative to avoid conflict
 function git-commit-gpg-sign { git commit --gpg-sign $args }
 
 Set-GitAlias -Name gcss -Value git-commit-gpg-sign-signoff -Scope Global
@@ -530,8 +530,8 @@ function git-commit-message { git commit --message $args }
 Set-GitAlias -Name gcsm -Value git-commit-signoff-message -Scope Global
 function git-commit-signoff-message { git commit --signoff --message $args }
 
-Set-GitAlias -Name gc -Value git-commit-verbose -Scope Global -AlternativeName gcommit
-Set-GitAlias -Name gcommit -Value git-commit-verbose -Scope Global  # Alternative to avoid conflict with Get-Content
+Set-GitAlias -Name gc -Value git-commit-verbose -Scope Global -AlternativeName gcv
+Set-GitAlias -Name gcv -Value git-commit-verbose -Scope Global  # Alternative to avoid conflict with Get-Content
 function git-commit-verbose { git commit --verbose $args }
 
 Set-GitAlias -Name gca -Value git-commit-verbose-all -Scope Global
