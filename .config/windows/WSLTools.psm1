@@ -3,7 +3,8 @@
 $LinuxCommands = @(
     "ls", "grep", "awk", "sed", "curl", "wget", "tar", 
     "gzip", "ssh", "scp", "chmod", "chown", "df", "du", 
-    "cat", "tail", "head", "less", "touch", "mkdir", "rm"
+    "cat", "tail", "head", "less", "touch", "mkdir", "rm",
+    "vim"
 )
 
 foreach ($cmd in $LinuxCommands) {
