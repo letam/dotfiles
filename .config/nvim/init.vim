@@ -257,6 +257,7 @@ call plug#end()
 
 " # BEGIN nvim-related plugin config {
 if has('nvim')
+	lua require('config.lazy')
 	lua require('config.lsp')
 	lua require('config.lsp/formatter')
 endif
