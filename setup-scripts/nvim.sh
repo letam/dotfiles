@@ -30,12 +30,11 @@ install_neovim
 
 # Link Neovim configuration for user
 # Note: Ensure that you are in the root directory of this project/repo to ensure that `pwd` evaluates properly
-mkdir -p ~/.config/nvim
-ln -s $(pwd)/.vimrc ~/.config/nvim/init.vim
-ln -s $(pwd)/nvim/lua ~/.config/nvim
+mkdir ~/.config
+ln -s $(pwd)/.config/nvim ~/.config
 
-# Link vimrc to home directory for easy access
-ln -s $(pwd)/.vimrc ~/.vimrc
+# Link init.vim to home directory for easy access
+ln -s $(pwd)/.config/nvim/init.vim ~/.nvimrc
 
 
 # Install vim-plug - Vim/Neovim plugin manager (https://github.com/junegunn/vim-plug)
