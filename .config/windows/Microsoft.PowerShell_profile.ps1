@@ -4,7 +4,7 @@
 Set-Alias -Name np -Value C:\Windows\notepad.exe
 
 Import-Module "$HOME\code\dotfiles\.config\windows\GitAliases.psm1" -DisableNameChecking
-Import-Module "$HOME\code\dotfiles\.config\windows\WSLTools.psm1"
+Import-Module "$HOME\code\dotfiles\.config\windows\WSLTools.psm1" -DisableNameChecking
 
 # to allow duplicating tabs in current directory
 function prompt {

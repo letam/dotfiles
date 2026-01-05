@@ -28,4 +28,4 @@ function wsl-path {
     wsl wslpath -u $path
 }
 
-Write-Host "WSL Aliases Loaded! (ls, grep, cat, etc. now route through WSL)" -ForegroundColor Cyan
+# Write-Host "WSL Aliases Loaded! (ls, grep, cat, etc. now route through WSL)" -ForegroundColor Cyan
