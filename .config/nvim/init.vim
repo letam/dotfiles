@@ -258,3 +258,6 @@ nnoremap <leader>dt "=strftime('%H:%M:%S')<CR>p
 inoremap <C-d>t <C-r>=strftime('%H:%M:%S')<CR>
 
 " # } END commands
+
+if filereadable(expand("~/.nvimrc.local")) | source ~/.nvimrc.local | endif
+
