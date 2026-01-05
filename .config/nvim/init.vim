@@ -70,110 +70,60 @@ nnoremap <leader>ho :nohlsearch<CR>
 
 
 " # BEGIN plugins {
-"
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
 
-" Make sure you use single quotes
-
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'junegunn/vim-easy-align'
-
-" Any valid git URL is allowed
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" Multiple Plug commands can be written in a single line using | separators
+" # BEGIN nvim-related plugin config {
 if has('nvim')
-  " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-  " let g:UltiSnipsExpandTrigger="<tab>"
-  " let g:UltiSnipsJumpForwardTrigger="<c-b>"
-  " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+	lua require('config.lazy')
+endif
+" # } END nvim-related plugin config
+
+
+" # BEGIN Telescope config {
+if has('nvim')
+	" Find files using Telescope command-line sugar.
+	nnoremap <leader>ff <cmd>Telescope find_files<cr>
+	nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+	nnoremap <leader>fb <cmd>Telescope buffers<cr>
+	nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+endif
+" # } END Telescope config
+
+
+if has('nvim')
+	" Neotree shortcuts
+	nnoremap <leader>n :Neotree focus<CR>
+	nnoremap <C-n> :Neotree<CR>
+	nnoremap <C-t> :Neotree toggle<CR>
+	nnoremap <leader>tf :NERDTreeFind<CR>
+	nnoremap <leader>tt :Neotree toggle<CR>
+	nnoremap <leader>tr :Neotree reveal<CR>
+
+	" Multiple Plug commands can be written in a single line using | separators
+	" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+	" let g:UltiSnipsExpandTrigger="<tab>"
+	" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+	" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 endif
 
-" On-demand loading
-Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
-"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Using a non-default branch
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-"Plug 'fatih/vim-go', { 'tag': '*' }
-
-" Plugin options
-"Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" Unmanaged plugin (manually installed and updated)
-"Plug '~/my-prototype-plugin'
-
-
-" # BEGIN my plugins {
-"
-
-Plug 'tpope/vim-sleuth'  " auto-detect indentation settings
-Plug 'tpope/vim-vinegar'  " file explorer-navigation goodies and related sugar
-Plug 'tpope/vim-eunuch'  " provides UNIX shell commands
-
-" NERDTree shortcuts
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-nnoremap <leader>tf :NERDTreeFind<CR>
-nnoremap <leader>tt :NERDTreeToggle<CR>
-
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" Set up telescope.nvim fuzzy finder. Find, Filter, Preview, Pick. 
-" Reference: https://github.com/nvim-telescope/telescope.nvim
-if has('nvim')
-	Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-
-	" Dependencies
-	Plug 'nvim-lua/plenary.nvim' " Lua utility functions
-
-	" Get FZF as sorter for telescope
-	" Reference: https://github.com/nvim-telescope/telescope-fzf-native.nvim
-	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-endif
-
-Plug 'ryanoasis/vim-devicons'  " file type icons
-
-Plug 'wakatime/vim-wakatime'
-Plug 'mhinz/vim-startify'
-
-Plug 'junegunn/fzf.vim'
-
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 set laststatus=2
 
-Plug 'tpope/vim-fugitive'  " Git plugin
-Plug 'tpope/vim-rhubarb'  " GitHub extension for fugitive.vim
-Plug 'junegunn/gv.vim'  " Git commit browser
-
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 nmap <leader>gj :GitGutterNextHunk<CR>
 nmap <leader>gk :GitGutterPrevHunk<CR>
 nmap <leader>gs :GitGutterStageHunk<CR>
 nmap <leader>gu :GitGutterUndoHunk<CR>
 
-Plug 'tpope/vim-commentary'
-
-Plug 'sbdchd/neoformat'
+" Plug 'sbdchd/neoformat'
 "format entire file
 nmap <leader>cf  :Neoformat<CR>
 "format selected text
 xnoremap <leader>cf  :Neoformat<CR>
 
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_conceal_function             = "ƒ"
 let g:javascript_conceal_null                 = "ø"
@@ -187,94 +137,13 @@ let g:javascript_conceal_super                = "Ω"
 let g:javascript_conceal_arrow_function       = "⇒"
 map <leader>l :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>
 
-
-" Syntax highlighting for JSX-TypeScript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-
-
-Plug 'honza/vim-snippets'
-
-
-Plug 'mattn/emmet-vim'
-
-
-" Plug 'dense-analysis/ale'
-"let g:ale_fixers = {
-"\   'javascript': ['prettier'],
-"\   'css': ['prettier'],
-"\}
-"let g:ale_fix_on_save = 1
-""let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all --no-semi'
-"let g:ale_javascript_prettier_options = '--trailing-comma all --no-semi'
-"
-
-if has('nvim')
-	Plug 'neovim/nvim-lspconfig'
-	Plug 'lewis6991/gitsigns.nvim'
-endif
-
-" Markdown Preview (for .md files)
-" If run into issues with post-update hook: https://github.com/iamcco/markdown-preview.nvim/issues/50
-" tl;dr: Run ':call mkdp#util#install()' After installing
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': ['markdown']}
-
-
-" Ruby langauge support
-Plug 'vim-ruby/vim-ruby'
-
-Plug 'ap/vim-css-color'
-
-Plug 'github/copilot.vim'
-
-
-" Themes
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'junegunn/seoul256.vim'
-Plug 'jnurmine/Zenburn'
-Plug 'rakr/vim-one'
-Plug 'preservim/vim-colors-pencil'
-if has('nvim')
-	Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
-endif
-Plug 'zacanger/angr.vim'
-
-Plug 'wellle/context.vim'
+" Plug 'wellle/context.vim'
 let g:startify_session_before_save = [
 	\ "ContextDisable"
 	\ ]
 
-Plug 'junegunn/goyo.vim'
-
-" # } END my plugins
-
-" Initialize plugin system
-call plug#end()
 
 " # } END plugins
-
-
-" # BEGIN nvim-related plugin config {
-if has('nvim')
-	lua require('config.lazy')
-	lua require('config.lsp')
-	lua require('config.lsp/formatter')
-endif
-" # } END nvim-related plugin config
-
-
-" # BEGIN Telescope config {
-if has('nvim')
-	" Find files using Telescope command-line sugar.
-	nnoremap <leader>ff <cmd>Telescope find_files<cr>
-	nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-	nnoremap <leader>fb <cmd>Telescope buffers<cr>
-	nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-	lua require('telescope').load_extension('fzf')
-endif
-" # } END Telescope config
 
 
 " # BEGIN theme {
