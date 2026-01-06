@@ -34,5 +34,6 @@ return {
   opts = {
     legacy_commands = false, -- this will be removed in the next major release
     workspaces = present_workspaces,
+    ui = { enable = false },  -- defer markdown rendering to render-markdown plugin instead
   },
 }
