@@ -203,7 +203,7 @@ fun! Colorslight()
 	set background=light
 	call Lightline('one')
 	if has('nvim')
-		colorscheme rose-pine
+		colorscheme one
 	else
 		colorscheme pencil
 	endif
