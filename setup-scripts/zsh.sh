@@ -43,9 +43,13 @@ config_history() {
 	HISTSIZE=999999999
 	SAVEHIST=$HISTSIZE
 
-	setopt SHARE_HISTORY          # share history between all sessions
 	setopt EXTENDED_HISTORY       # write the history file with timestamps in the ":start:elapsed;command" format
+
+	# Note that we want both INC_APPEND_HISTORY and SHARE_HISTORY, so that we can easily disable SHARE_HISTORY while still appending to history, to allow singular workflows within a single terminal session
+	# Reference: https://askubuntu.com/questions/23630/how-do-you-share-history-between-terminals-in-zsh
+	# Referene: https://github.com/ohmyzsh/ohmyzsh/issues/2537
 	setopt INC_APPEND_HISTORY     # write to the history file immediately, not when the shell exits
+	setopt SHARE_HISTORY          # share history between all sessions
 
 	setopt HIST_IGNORE_DUPS       # ignore duplicated commands in history list
 	setopt HIST_IGNORE_SPACE      # ignore commands that start with space
