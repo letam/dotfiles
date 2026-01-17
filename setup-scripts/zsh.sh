@@ -66,6 +66,28 @@ if ! grep -q '# History settings' ~/.zshrc; then
 fi
 
 
+# Add toggle function for share history
+config_toggle_share_history() {
+	cat >> ~/.zshrc <<-"EOF"
+
+	# Toggle share history for current session
+	toggle_share_history() {
+	  if [[ -o SHARE_HISTORY ]]; then
+	    unsetopt SHARE_HISTORY
+	    echo "SHARE_HISTORY disabled for this session"
+	  else
+	    setopt SHARE_HISTORY
+	    echo "SHARE_HISTORY enabled for this session"
+	  fi
+	}
+
+	EOF
+}
+if ! grep -q 'toggle_share_history' ~/.zshrc; then
+	config_toggle_share_history
+fi
+
+
 # Set directory of zsh-plugins
 plugins_dir=.local/share/zsh-plugins
 [ ! -d "$plugins_dir" ] && (
