@@ -164,6 +164,25 @@ install_git_plugin_zsh() {
 install_git_plugin_zsh
 
 
+# Add WSL-specific config to keep current path in Windows Terminal
+config_wsl_keep_current_path() {
+	cat >> ~/.zshrc <<-"EOF"
+
+	# Keep current path when opening new terminal in WSL
+	# Reference: https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory
+	keep_current_path() {
+	  printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
+	}
+	precmd_functions+=(keep_current_path)
+
+	EOF
+}
+# Only add if running on WSL and not already configured
+if grep -qi microsoft /proc/version 2>/dev/null && ! grep -q 'keep_current_path' ~/.zshrc; then
+	config_wsl_keep_current_path
+fi
+
+
 if ! getent passwd "$USER" | grep -qE ':/bin/zsh$|:/usr/bin/zsh$'; then
 	cat <<-EOF
 	To change your default shell, run:
