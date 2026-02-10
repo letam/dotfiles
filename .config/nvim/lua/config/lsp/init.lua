@@ -16,7 +16,11 @@ vim.lsp.config('rust_analyzer', {
     }
   }
 })
+
+-- js stuff
 vim.lsp.enable('biome')
+vim.lsp.enable('oxfmt')
+vim.lsp.enable('oxlint')
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
