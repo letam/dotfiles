@@ -4,10 +4,18 @@
 -- Setup language servers.
 -- Reference for server configs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
+-- Add cmp-nvim-lsp capabilities to LSP servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local has_cmp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+if has_cmp then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+end
+
 -- vim.lsp.enable('pyright')
 vim.lsp.enable('pylsp')
 vim.lsp.enable('ts_ls')
 vim.lsp.config('rust_analyzer', {
+  capabilities = capabilities,
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {
