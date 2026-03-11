@@ -66,16 +66,22 @@ install_brew() {
 			brew install gcc
 		fi
 	elif is_mac; then
-		if grep -q 'brew shellenv' ~/.zprofile; then 
+		if grep -q 'brew shellenv' ~/.zprofile; then
 			info "Homebrew environment already configured in ~/.zprofile"
 		else
 			info "Configuring Homebrew environment in ~/.zprofile"
+			# Detect brew path (Apple Silicon: /opt/homebrew, Intel: /usr/local)
+			if [ -x /opt/homebrew/bin/brew ]; then
+				brew_bin=/opt/homebrew/bin/brew
+			else
+				brew_bin=/usr/local/bin/brew
+			fi
 			{
 				echo
 				echo '# Load brew'
-				echo 'eval "$(/usr/local/bin/brew shellenv)"'
+				echo "eval \"\$($brew_bin shellenv)\""
 			} >> "$HOME/.zprofile"
-			eval "$(/usr/local/bin/brew shellenv)"
+			eval "$($brew_bin shellenv)"
 		fi
 	fi
 	info "Homebrew installation complete."
