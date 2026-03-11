@@ -167,6 +167,16 @@ install_uv() {
 		# On macOS and Linux.
 		curl -LsSf https://astral.sh/uv/install.sh | sh
 	fi
+
+	# Zsh shell completion
+	add_line_if_missing \
+		"$HOME/.zshrc" \
+		"Set up uv shell completion" \
+		'eval "$(uv generate-shell-completion zsh)"'
+	add_line_if_missing \
+		"$HOME/.zshrc" \
+		"Set up uvx shell completion" \
+		'eval "$(uvx --generate-shell-completion zsh)"'
 }
 install_uv
 
