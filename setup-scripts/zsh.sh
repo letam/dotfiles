@@ -113,6 +113,7 @@ install_starship_theme() {
 	if command -v brew >/dev/null; then
 		brew install starship
 	else
+		[ ! -d /usr/local/bin ] && sudo mkdir -p /usr/local/bin
 		curl -sS https://starship.rs/install.sh | sh
 	fi
 	if ! grep -q 'eval "$(starship init zsh)"' ~/.zshrc; then
@@ -209,7 +210,7 @@ if grep -qi microsoft /proc/version 2>/dev/null && ! grep -q 'keep_current_path'
 fi
 
 
-if ! getent passwd "$USER" | grep -qE ':/bin/zsh$|:/usr/bin/zsh$'; then
+if command -v getent >/dev/null && ! getent passwd "$USER" | grep -qE ':/bin/zsh$|:/usr/bin/zsh$'; then
 	cat <<-EOF
 	To change your default shell, run:
 	  sudo chsh -s /bin/zsh $USER
