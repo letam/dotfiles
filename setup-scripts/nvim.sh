@@ -30,7 +30,7 @@ install_neovim
 
 # Link Neovim configuration for user
 # Note: Ensure that you are in the root directory of this project/repo to ensure that `pwd` evaluates properly
-mkdir ~/.config
+mkdir -p ~/.config
 ln -s $(pwd)/.config/nvim ~/.config
 
 # Link init.vim to home directory for easy access
