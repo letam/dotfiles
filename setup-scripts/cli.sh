@@ -162,7 +162,11 @@ install_python() {
 
 	info "Python installation complete."
 }
-install_python
+if [[ "$SKIP_BREW" == "1" ]]; then
+	info "Skipping Python installation (SKIP_BREW=1)"
+else
+	install_python
+fi
 
 
 # Install pipx - Install and Run Python Applications in Isolated Environments (https://pypa.github.io/pipx/)
@@ -176,7 +180,11 @@ install_pipx() {
 	fi
 	pipx ensurepath
 }
-install_pipx
+if [[ "$SKIP_BREW" == "1" ]]; then
+	info "Skipping pipx installation (SKIP_BREW=1)"
+else
+	install_pipx
+fi
 
 
 # Install uv - Python package and project manager (https://github.com/astral-sh/uv)
@@ -211,7 +219,11 @@ install_ranger() {
 		pipx install ranger-fm
 	fi
 }
-install_ranger
+if [[ "$SKIP_BREW" == "1" ]]; then
+	info "Skipping ranger installation (SKIP_BREW=1)"
+else
+	install_ranger
+fi
 
 
 # Install enhanced line search tool (https://github.com/BurntSushi/ripgrep)
