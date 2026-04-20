@@ -3,6 +3,19 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Install common CLI tools
+#
+# Options (env vars):
+#   SKIP_BREW=1   Skip Homebrew installation/configuration
+#
+# Options (flags):
+#   --skip-brew   Same as SKIP_BREW=1
+
+SKIP_BREW="${SKIP_BREW:-0}"
+for arg in "$@"; do
+	case "$arg" in
+		--skip-brew) SKIP_BREW=1 ;;
+	esac
+done
 
 
 # Load utility functions
@@ -86,7 +99,11 @@ install_brew() {
 	fi
 	info "Homebrew installation complete."
 }
-install_brew
+if [[ "$SKIP_BREW" == "1" ]]; then
+	info "Skipping Homebrew installation (SKIP_BREW=1)"
+else
+	install_brew
+fi
 
 
 # Install FZF general-purpose command-line fuzzy finder (https://github.com/junegunn/fzf)
