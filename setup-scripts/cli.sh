@@ -111,8 +111,12 @@ install_fzf() {
 	if command -v fzf >/dev/null; then
 		info "fzf is already installed"
 	else
-		info "Installing fzf via Homebrew…"
-		brew install fzf
+		info "Installing fzf…"
+		if is_ubuntu; then
+			sudo apt install -y fzf
+		elif is_mac; then
+			brew install fzf
+		fi
 	fi
 	info "Setting up fzf shell integration…"
 
@@ -216,7 +220,11 @@ install_ripgrep() {
 		info "ripgrep is already installed"
 	else
 		info "Installing ripgrep…"
-		brew install ripgrep
+		if is_ubuntu; then
+			sudo apt install -y ripgrep
+		elif is_mac; then
+			brew install ripgrep
+		fi
 	fi
 }
 install_ripgrep
@@ -328,7 +336,11 @@ install_icdiff() {
 		info "icdiff is already installed"
 	else
 		info "Installing icdiff…"
-		brew install icdiff
+		if is_ubuntu; then
+			sudo apt install -y icdiff
+		elif is_mac; then
+			brew install icdiff
+		fi
 	fi
 
 	# Configure icdiff options
