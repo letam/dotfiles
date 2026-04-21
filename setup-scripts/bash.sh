@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
 # Basic Bash settings
+#
+# Linux-only: relies on GNU sed (`-i` without backup arg, `\s`, `\n` in
+# replacements). BSD sed on macOS rejects these, so refuse to run elsewhere.
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+	printf "\e[31m[ERROR]\e[0m %s\n" "bash.sh is Linux-only (requires GNU sed); detected $(uname -s)." >&2
+	exit 1
+fi
 
 
 ## Backup initial .bashrc file
