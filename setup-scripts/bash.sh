@@ -64,6 +64,9 @@ mkdir -vp ~/.config/bash/plugins
 		#### Disable 'git_version' assignment statement
 		sed -i -E "s/^(git_version=.*)/#\1/" $file
 
+		#### Disable zsh-only deprecated-alias block (local + `for a b (…)` + aliases[…])
+		sed -i -E "/^local old_name/,/^unset old_name new_name$/ s/^/#/" $file
+
 		#### Disable 'is-at-least' statements and enable first case
 		line_num=$(grep -n -m1 "^is-at-least .*" $file | cut -f1 -d:)
 		while [[ $line_num != "" ]]; do
