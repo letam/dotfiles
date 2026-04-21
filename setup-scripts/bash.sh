@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+# Basic Bash settings
+
+
+## Backup initial .bashrc file
+file=~/.bashrc
+cp -p $file $file.bak.$(date -u +%Y-%m-%d-%H%M%S)
+
+
+## Add history settings
+cat >> ~/.bashrc <<-"EOF"
+
+
+	# History settings
+
+	## Ignore lines that begin with a space, and ignore duplicate entries
+	HISTCONTROL=ignorespace:ignoredups
+
+	## Increase history sizes
+	HISTSIZE=1000000
+	HISTFILESIZE=2000000
+
+	## Save to history immediately
+	PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
+	## Save time of command in history
+	HISTTIMEFORMAT="%Y-%m-%d %T "
+
+	EOF
+
+
+## Add plugins and aliases
+mkdir -vp ~/.config/bash/plugins
+(
+	cd ~/.config/bash/plugins
+
+	echo 'Downloading "Git plugin (aliases)"...'
+	curl -LO https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/git/git.plugin.zsh
+	zfile=~/.config/bash/plugins/git.plugin.zsh
+
+	if [[ -f $zfile ]]; then
+		### Modify the file for it to work in Bash
+		file=$(sed 's/\.zsh$/\.bash/' <<< $zfile)
+		cp -vp "$zfile" "$file"
+
+		#### Disable all 'compdef' statements
+		sed -i -E "s/^(compdef)/#\1/" $file
+
+		#### Convert one-liner functions to be multi-line blocks
+		sed -i -E "s/^(function [^{]+\{)\s*([^}]+)\s(})/\1\n  \2\n\3/" $file
+
+		#### Disable 'autoload is-at-least' statement
+		sed -i -E "s/^(autoload .* is-at-least)/#\1/" $file
+
+		#### Disable 'git_version' assignment statement
+		sed -i -E "s/^(git_version=.*)/#\1/" $file
+
+		#### Disable 'is-at-least' statements and enable first case
+		line_num=$(grep -n -m1 "^is-at-least .*" $file | cut -f1 -d:)
+		while [[ $line_num != "" ]]; do
+			additional_lines_to_comment=2
+
+			##### Store statement to enable (which should be the next line)
+			statement_to_enable=$(
+				sed "$((line_num + 1))"'q;d' $file \
+				| sed -E "s/\s*&&\s+(alias .*+') \\\/\1/" \
+			)
+			##### Insert statement enabled
+			sed -i "$((line_num+additional_lines_to_comment+1))i$statement_to_enable" $file
+
+			##### Check if should include previous line in comment action
+			previous_line="$(sed "$((line_num - 1))"'q;d' $file)"
+			if [[ ${previous_line:0:2} == '# ' ]]; then
+				line_num=$((line_num - 1))
+				let additional_lines_to_comment++
+			fi
+			sed -i "$line_num,$((line_num+additional_lines_to_comment)) {s/^/#/}" $file
+
+			##### Check for next occurence to run loop
+			line_num=$(grep -n -m1 "^is-at-least .*" $file | cut -f1 -d:)
+		done
+
+		# ##### Insert alias for 'git stash push' above alias `gstaa`
+		# if ! grep -q '^alias gsta=' $file; then
+		# 	sed -i -E "s/^(alias gstaa=)/alias gsta='git stash push'\n\1/" $file
+		# fi
+		# ##### Insert alias for 'git fetch -all --prune' above alias `gfo`
+		# if ! grep -q '^alias gfa=' $file; then
+		# 	sed -i -E "s/^(alias gfo=)/alias gfa='git fetch --all --prune --jobs=10'\n\1/" $file
+		# fi
+	else
+		cd - >/dev/null
+		cp -vp $(dirname $0)/plugins/git.plugin.bash ~/.config/bash/plugins
+	fi
+)
+
+if ! grep -q '# Plugins and aliaes' ~/.bashrc; then
+	cat >> ~/.bashrc <<"EOF"
+
+
+# Plugins and aliases
+for x in ~/.config/bash/plugins/*.bash; do
+	source $x
+done
+
+EOF
+
+fi
+

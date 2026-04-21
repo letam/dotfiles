@@ -38,13 +38,13 @@ if is_ubuntu; then
 fi
 
 
-# Update bash config (~/.bashrc) with letam's shbang bash setup script
+# Update bash config (~/.bashrc) with our Bash setup script
 if is_ubuntu; then
-	if grep -q 'Bash settings' ~/.bashrc; then 
+	if grep -q '# History settings' ~/.bashrc; then
 		info 'Bash is already set up with our custom settings'
 	else
-		info "Settig up Bash with shbang settings"
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/letam/shbang/master/setup/cli/bash)"
+		info "Setting up Bash with our custom settings"
+		/bin/bash ./setup-scripts/bash.sh
 	fi
 fi
 
