@@ -19,9 +19,27 @@ install_neovim() {
 		echo "Neovim is already installed"
 	else
 		echo "Installing Neovim..."
-		brew install neovim
+		if is_ubuntu; then
+			local arch tarball url
+			arch=$(uname -m)
+			case "$arch" in
+				x86_64)  tarball=nvim-linux-x86_64.tar.gz ;;
+				aarch64) tarball=nvim-linux-arm64.tar.gz ;;
+				*) error "Unsupported architecture: $arch" ;;
+			esac
+			url="https://github.com/neovim/neovim/releases/latest/download/$tarball"
+			info "Downloading $url"
+			curl -fL --progress-bar -o "/tmp/$tarball" "$url"
+			info "Extracting to /opt"
+			sudo rm -rf /opt/nvim-linux-x86_64 /opt/nvim-linux-arm64
+			sudo tar -C /opt -xzf "/tmp/$tarball"
+			rm -f "/tmp/$tarball"
+			sudo ln -sf "/opt/${tarball%.tar.gz}/bin/nvim" /usr/local/bin/nvim
+		else
+			brew install neovim
+		fi
 	fi
-	sudo ln -s `which nvim` /usr/local/bin/vim
+	sudo ln -sf "$(which nvim)" /usr/local/bin/vim
 
 	git config --global core.editor vim
 }
@@ -31,8 +49,8 @@ install_neovim
 # Link Neovim configuration for user
 # Note: Ensure that you are in the root directory of this project/repo to ensure that `pwd` evaluates properly
 mkdir -p ~/.config
-ln -s $(pwd)/.config/nvim ~/.config
+ln -sfn "$(pwd)/.config/nvim" ~/.config/nvim
 
 # Link init.vim to home directory for easy access
-ln -s $(pwd)/.config/nvim/init.vim ~/.nvimrc
+ln -sf "$(pwd)/.config/nvim/init.vim" ~/.nvimrc
 
