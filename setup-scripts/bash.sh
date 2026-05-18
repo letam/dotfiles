@@ -16,6 +16,16 @@ file=~/.bashrc
 cp -p $file $file.bak.$(date -u +%Y-%m-%d-%H%M%S)
 
 
+## Disable Ubuntu-skeleton history defaults so the larger values appended below
+## take effect. Assigning HISTFILESIZE in bash *immediately* truncates
+## ~/.bash_history to that many lines, so leaving the default HISTFILESIZE=2000
+## near the top of .bashrc chops the file before our override raises the cap.
+## Idempotent: already-commented lines don't match the anchors.
+sed -i -E 's/^HISTCONTROL=ignoreboth$/# HISTCONTROL=ignoreboth  # superseded by History settings block below/' $file
+sed -i -E 's/^HISTSIZE=1000$/# HISTSIZE=1000  # superseded by History settings block below/' $file
+sed -i -E 's|^HISTFILESIZE=2000$|# HISTFILESIZE=2000  # superseded below; assigning HISTFILESIZE truncates ~/.bash_history immediately|' $file
+
+
 ## Add history settings
 cat >> ~/.bashrc <<-"EOF"
 
