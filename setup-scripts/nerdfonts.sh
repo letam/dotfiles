@@ -40,6 +40,7 @@ else
 		font-fira-code-nerd-font
 		font-geist-mono-nerd-font
 		font-jetbrains-mono-nerd-font
+		font-maple-mono-nf
 		font-meslo-lg-nerd-font
 		font-mononoki-nerd-font
 		font-ubuntu-sans-nerd-font
