@@ -187,10 +187,12 @@ endf
 fun! Colorsdark()
 	set background=dark
 	call Lightline('darcula')
-	colorscheme angr
+	colorscheme rose-pine-moon
 
 	if (has("termguicolors"))
-		set notermguicolors
+		" rose-pine (nvim) is truecolor-only — defines no cterm colors,
+		" so termguicolors MUST be on or highlights fall back to defaults.
+		set termguicolors
 	endif
 
 	" Set transparent background
