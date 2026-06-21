@@ -37,6 +37,15 @@ end
 config.color_scheme = scheme_for_appearance(get_appearance())
 
 
+-- Font: Maple Mono (Nerd Font) — rounded glyphs, cursive italics, ligatures.
+-- Reference: https://wezfurlong.org/wezterm/config/fonts.html
+config.font = wezterm.font('Maple Mono NF', { weight = 'Regular' })
+config.font_size = 14.0
+config.line_height = 1.1
+-- Ligatures are on by default; this is the explicit form if you want to tweak it.
+config.harfbuzz_features = { 'calt=1', 'liga=1', 'dlig=1' }
+
+
 -- Reference: https://wezfurlong.org/wezterm/config/lua/keyassignment/SendKey.html
 
 local act = wezterm.action
