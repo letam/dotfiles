@@ -26,7 +26,8 @@ end
 function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
     -- return 'Builtin Solarized Dark'
-    return 'Chalk (dark) (terminal.sexy)'
+    -- return 'Chalk (dark) (terminal.sexy)'
+    return 'rose-pine-moon'
   else
     -- return 'Builtin Solarized Light'
     return 'Chalk (light) (terminal.sexy)'
